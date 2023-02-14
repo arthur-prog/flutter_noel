@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "154668288998",
+    "project_id": "flutter-noel",
+    "storage_bucket": "flutter-noel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154668288998:android:9628b0a7e1b6b4cb69e427",
+        "android_client_info": {
+          "package_name": "com.example.flutter_noel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154668288998-8flrfivvtrbaonvub8et6qfi1tmvl37n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_noel",
+            "certificate_hash": "cdc752f4bb5dc2a6c95189ae079214d49d5eec6d"
+          }
+        },
+        {
+          "client_id": "154668288998-uifp7o3h1k0nqofps323nrm2b2ujvss9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr2LiNLW2hd-p6vQWuaO1z6vrTsEvufXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154668288998-uifp7o3h1k0nqofps323nrm2b2ujvss9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
