@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>154668288998-n7k0cmcgpc7v00q9qi0cljm7sigg2s2b.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.154668288998-n7k0cmcgpc7v00q9qi0cljm7sigg2s2b</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>154668288998-8flrfivvtrbaonvub8et6qfi1tmvl37n.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAEQ2aLzsuchESfCK3NstDhkq-ctPUQaQ4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>154668288998</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.flutterNoel</string>
+	<key>PROJECT_ID</key>
+	<string>flutter-noel</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flutter-noel.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:154668288998:ios:cbba1fea3e93a88a69e427</string>
+</dict>
+</plist>
