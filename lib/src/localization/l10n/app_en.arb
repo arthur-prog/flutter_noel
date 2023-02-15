@@ -2,5 +2,85 @@
   "helloWorld": "Hello World!",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
+  },
+  "createdProduct": "Product created successfully!",
+  "@createdProduct": {
+    "description": "The message that appears when a product is created successfully"
+  },
+  "somethingWentWrong": "Something went wrong!",
+  "@somethingWentWrong": {
+      "description": "The message that appears when something went wrong"
+  },
+  "success": "Success",
+  "@success": {
+      "description": "The message that appears when something went right"
+  },
+  "error": "Error",
+  "@error": {
+    "description": "The message that appears when something went wrong"
+  },
+  "addProduct": "Add Product",
+  "@addProduct": {
+    "description": "The message that appears when you want to add a product"
+  },
+  "productName": "Name",
+  "@productName": {
+      "description": "The product Name"
+  },
+  "productDescription": "Description",
+  "@productDescription": {
+      "description": "The product Description"
+  },
+  "productCategory": "Category",
+  "@productCategory": {
+    "description": "The product Category"
+  },
+  "productPrice": "Price",
+  "@productPrice": {
+      "description": "The product Price"
+  },
+  "productImage": "Image",
+  "@productImage": {
+      "description": "The product Image"
+  },
+  "nameIsRequired": "Please enter a product name",
+  "@nameIsRequired": {
+      "description": "The error message that appears when you don't enter a product name"
+  },
+  "descriptionIsRequired": "Please enter a product description",
+  "@descriptionIsRequired": {
+      "description": "The error message that appears when you don't enter a product description"
+  },
+  "categoryIsRequired": "Please enter a product category",
+  "@categoryIsRequired": {
+      "description": "The error message that appears when you don't enter a product category"
+  },
+  "priceIsRequired": "Please enter a product price",
+  "@priceIsRequired": {
+    "description": "The error message that appears when you don't enter a product price"
+  },
+  "validate": "Validate",
+  "@validate": {
+      "description": "The validate"
+  },
+  "glove": "Glove",
+  "@glove": {
+      "description": "The glove"
+  },
+  "sweater": "Sweater",
+  "@sweater": {
+      "description": "The sweater"
+  },
+  "hat": "Hat",
+  "@hat": {
+      "description": "The hat"
+  },
+  "productWithVariant": "Product with variants",
+  "@productWithVariant": {
+      "description": "The message that appears when a product has variants"
+  },
+  "addVariant": "Add Variant",
+  "@addVariant": {
+      "description": "The message that appears when you want to add a variant"
   }
 }
