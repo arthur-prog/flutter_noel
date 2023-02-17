@@ -1,0 +1,1 @@
+const noImageUrl = "default/no-image.jpg";

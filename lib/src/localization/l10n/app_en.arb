@@ -82,5 +82,33 @@
   "addVariant": "Add Variant",
   "@addVariant": {
       "description": "The message that appears when you want to add a variant"
+  },
+  "color": "Color",
+  "@color": {
+    "description": "The color"
+  },
+  "size": "Size",
+  "@size": {
+    "description": "The size"
+  },
+  "addPhoto": "Add Photo",
+  "@addPhoto": {
+    "description": "The message that appears when you want to add a photo"
+  },
+  "selectPhotoTitle": "Make selection",
+  "@selectPhotoTitle": {
+    "description": "The select photo title"
+  },
+  "selectPhotoSubTitle": "Select one of the options below to change your profile picture",
+  "@selectPhotoSubTitle": {
+    "description": "The select photo sub title"
+  },
+  "galleryTitle": "Browse gallery",
+  "@galleryTitle": {
+    "description": "The gallery title"
+  },
+  "cameraTitle": "Use camera",
+  "@cameraTitle": {
+    "description": "The camera title"
   }
 }

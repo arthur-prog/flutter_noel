@@ -19,5 +19,11 @@
   "sweater": "Pull",
   "hat": "Bonnet",
   "productWithVariant": "Produit avec variantes",
-  "addVariant": "Ajouter une variante"
+  "addVariant": "Ajouter une variante",
+  "color": "Couleur",
+  "size": "Taille",
+  "selectPhotoTitle": "Faites un choix",
+  "selectPhotoSubTitle": "Sélectionner une des méthodes ci-dessous pour changer votre photo de profil",
+  "galleryTitle": "Parcourir la galerie",
+  "cameraTitle": "Utiliser l'appareil photo"
 }

@@ -10,7 +10,7 @@ class ProductRepository extends GetxController {
   final productsCollection = FirebaseFirestore.instance.collection('products');
 
   Future<void> addProduct(Product product){
-    final productDoc = productsCollection.doc();
+    final productDoc = productsCollection.doc(product.id);
     return productDoc.set(product.toMap())
         .whenComplete(
           () => SnackBarInformationWidget(
@@ -27,6 +27,10 @@ class ProductRepository extends GetxController {
       );
       print(error.toString());
     });
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getProducts() {
+    return productsCollection.snapshots();
   }
 
 }
