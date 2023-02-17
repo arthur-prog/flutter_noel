@@ -1,0 +1,1 @@
+const productPictureFolder = "product_pictures";
