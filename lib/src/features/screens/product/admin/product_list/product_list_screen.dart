@@ -23,7 +23,7 @@ class ProductListScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: StreamBuilder(
-              stream: _productRepository.getProducts(),
+              stream: _productRepository.getProductsSnapshots(),
               builder: (BuildContext context, AsyncSnapshot productsSnapshot) {
                 List<Widget> children = [];
                 if (productsSnapshot.hasData) {
