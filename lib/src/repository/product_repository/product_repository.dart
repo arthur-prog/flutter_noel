@@ -29,7 +29,7 @@ class ProductRepository extends GetxController {
     });
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getProducts() {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getProductsSnapshots() {
     return productsCollection.snapshots();
   }
 
