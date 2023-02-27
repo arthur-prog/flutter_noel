@@ -25,5 +25,13 @@
   "selectPhotoTitle": "Faites un choix",
   "selectPhotoSubTitle": "Sélectionner une des méthodes ci-dessous pour changer votre photo de profil",
   "galleryTitle": "Parcourir la galerie",
-  "cameraTitle": "Utiliser l'appareil photo"
+  "cameraTitle": "Utiliser l'appareil photo",
+  "sameImage": "Utiliser la même image",
+  "colorIsRequired": "Veuillez entrer une couleur",
+  "sizeIsRequired": "Veuillez entrer une taille",
+  "deletedProduct": "Le produit a bien été supprimé",
+  "deletedVariant": "La variante a bien été supprimée",
+  "updateProduct": "Modifier le produit",
+  "updatedProduct": "Le produit a bien été modifié",
+  "editVariant": "Modifier la variante"
 }
