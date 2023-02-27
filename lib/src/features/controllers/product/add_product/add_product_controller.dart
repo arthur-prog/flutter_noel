@@ -2,61 +2,121 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_noel/src/common_widgets/modal_bottom_sheet/modal_btn_widget.dart';
 import 'package:flutter_noel/src/constants/strings.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
+import 'package:flutter_noel/src/features/models/Variant.dart';
+import 'package:flutter_noel/src/features/screens/product/admin/add_variant/add_variant_screen.dart';
+import 'package:flutter_noel/src/features/screens/product/admin/product_list/product_list_screen.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
+import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class AddProductController extends GetxController {
   static AddProductController get instance => Get.find();
 
   final _productRepository = Get.put(ProductRepository());
+  final productPictureRef = FirebaseStorage.instance.ref().child(productPictureFolder);
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController categoryController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   Rx<bool> isVariable = false.obs;
   Rx<bool> isColorSelected = true.obs;
   Rx<bool> isSizeSelected = false.obs;
+  Rx<bool> isSameImageSelected = false.obs;
 
   Rx<File?> image = Rx<File?>(null);
+  RxList<File?> variantImages = RxList<File?>([]);
 
-  // RxList<Product> variants = <Product>[].obs;
-  // RxList<TextEditingController> variantParametersController = <TextEditingController>[].obs;
-
-  final productPictureRef = FirebaseStorage.instance.ref().child(productPictureFolder);
+  RxList<Variant> variants = RxList<Variant>([]);
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  Future<File?> cropImage({required File imageFile}) async {
-    CroppedFile? croppedImage =
-    await ImageCropper().cropImage(sourcePath: imageFile.path);
-    if (croppedImage == null) return null;
-    return File(croppedImage.path);
-  }
+  late Product? product;
+  final List<Variant> oldVariants = [];
 
-  Future<void> pickImage(ImageSource source) async {
-    try {
-      final thisImg = await ImagePicker().pickImage(source: source);
-      if (thisImg == null) return;
-      File? img = File(thisImg.path);
-      img = await cropImage(imageFile: img);
-      image.value = img;
-    } on PlatformException catch (e) {
-      print(e);
-      Navigator.of(Get.context!).pop();
+  void modifyVariant(index) async{
+    final result = await Get.to(() => AddVariantScreen(
+      color: isColorSelected.value,
+      size: isSizeSelected.value,
+      sameImage: isSameImageSelected.value,
+      variant: variants[index],
+      image: variantImages[index],
+    ));
+    if (result != null){
+      variants[index]= result["variant"];
+      if(result["image"] != null){
+        variantImages[index]= result["image"];
+      }
     }
   }
 
-  Future<void> storeImage(String productId) async {
+  void addValues(Product? thisProduct) async {
+    if (thisProduct != null) {
+      product = thisProduct;
+      nameController.text = product!.name;
+      descriptionController.text = product!.description;
+      categoryController.text = product!.category;
+      final variantList = await _productRepository.getVariants(product!);
+      if(variantList.isNotEmpty){
+        isVariable.value = true;
+        if(variantList[0].color != ""){
+          isColorSelected.value = true;
+        } else {
+          isColorSelected.value = false;
+        }
+        if(variantList[0].size != ""){
+          isSizeSelected.value = true;
+        } else {
+          isSizeSelected.value = false;
+        }
+        if(variantList[0].urlPicture != ""){
+          isSameImageSelected.value = false;
+        } else {
+          isSameImageSelected.value = true;
+        }
+        variants.value = variantList;
+        oldVariants.addAll(variantList);
+        //variant images
+        for (int i = 0; i < variantList.length; i++){
+          if(variantList[i].urlPicture != ""){
+            final imageUrl = await getImageUrl(variantList[i].urlPicture!);
+            File file = await urlToFile(imageUrl);
+            variantImages.add(file);
+          }
+        }
+      } else {
+        priceController.text = product!.price.toString();
+      }
+    }
+  }
+
+
+  void selectImage() async {
+    image.value = await buildShowModalBottomSheet();
+  }
+
+  void addVariant() async{
+    final result = await Get.to(() => AddVariantScreen(
+      color: isColorSelected.value,
+      size: isSizeSelected.value,
+      sameImage: isSameImageSelected.value,
+    ));
+    if (result != null){
+      variants.add(result["variant"]);
+      variantImages.add(result["image"]);
+    }
+  }
+
+  void removeVariant(int index){
+    variants.removeAt(index);
+  }
+
+  Future<void> storeProductImage(String productId) async {
     final idProductPictureRef = productPictureRef.child(productId);
     try {
       await idProductPictureRef.putFile(image.value!);
@@ -65,51 +125,15 @@ class AddProductController extends GetxController {
     }
   }
 
-  Future buildShowModalBottomSheet(){
-    return showModalBottomSheet(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        context: Get.context!,
-        builder: (context) => Container(
-          height: MediaQuery.of(context).size.height * 0.4,
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.selectPhotoTitle,
-                style: Theme.of(context).textTheme.headline2,
-              ),
-              Text(
-                AppLocalizations.of(context)!.selectPhotoSubTitle,
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              ModalBtnWidget(
-                icon: Icons.image,
-                iconSize: 40,
-                title: AppLocalizations.of(context)!.galleryTitle,
-                onTap: () {
-                  Navigator.pop(context);
-                  pickImage(ImageSource.gallery);
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ModalBtnWidget(
-                icon: Icons.camera_alt_outlined,
-                iconSize: 40,
-                title: AppLocalizations.of(context)!.cameraTitle,
-                onTap: () {
-                  Navigator.pop(context);
-                  pickImage(ImageSource.camera);
-                },
-              ),
-            ],
-          ),
-        ));
+  Future<void> storeVariantImages(String productId) async {
+    for (int i = 0; i < variants.length; i++) {
+      final idProductPictureRef = productPictureRef.child("$productId/${variants[i].id}");
+      try {
+        await idProductPictureRef.putFile(variantImages[i]!);
+      } catch (e) {
+        print("_storeImage error: $e");
+      }
+    }
   }
 
   void changeCategory(value) {
@@ -118,6 +142,10 @@ class AddProductController extends GetxController {
 
   void changeIsVariable(bool value) {
     isVariable.value = value;
+  }
+
+  void changeIsSameImageSelected(bool value) {
+    isSameImageSelected.value = value;
   }
 
   void changeIsColorSelected(bool value) {
@@ -169,11 +197,49 @@ class AddProductController extends GetxController {
         name: nameController.text,
         description: descriptionController.text,
         category: categoryController.text,
-        price: double.parse(priceController.text),
-        urlPicture: "$productPictureFolder/$id",
+        price: !isVariable.value ? double.parse(priceController.text) : null,
+        urlPicture: !isVariable.value || (isVariable.value && isSameImageSelected.value) ? "$productPictureFolder/$id" : "$productPictureFolder/$id/${variants[0].id}",
       );
       await _productRepository.addProduct(product);
-      storeImage(product.id);
+      if (isVariable.value){
+        storeVariantImages(product.id);
+        for (var variant in variants) {
+          variant.urlPicture = "$productPictureFolder/${product.id}/${variant.id}";
+          _productRepository.addVariant(product, variant);
+        }
+      } else {
+        storeProductImage(product.id);
+      }
+      Get.to(() => ProductListScreen());
+    }
+  }
+
+  void updateProduct() async{
+    if (formKey.currentState!.validate()) {
+      product!.name = nameController.text;
+      product!.description = descriptionController.text;
+      product!.category = categoryController.text;
+      product!.price = !isVariable.value ? double.parse(priceController.text) : null;
+      product!.urlPicture = !isVariable.value || (isVariable.value && isSameImageSelected.value) ? "$productPictureFolder/${product!.id}" : "$productPictureFolder/${product!.id}/${variants[0].id}";
+      await _productRepository.updateProduct(product!);
+      if(isVariable.value){
+        if(variants == oldVariants){
+          storeVariantImages(product!.id);
+        } else {
+          for (var variant in oldVariants) {
+            deleteImage(variant.urlPicture!);
+            _productRepository.deleteVariant(product!.id, variant.id);
+          }
+          storeVariantImages(product!.id);
+          for (var variant in variants) {
+            variant.urlPicture = "$productPictureFolder/${product!.id}/${variant.id}";
+            _productRepository.addVariant(product!, variant);
+          }
+        }
+      } else {
+        storeProductImage(product!.id);
+      }
+      Get.to(() => ProductListScreen());
     }
   }
 }

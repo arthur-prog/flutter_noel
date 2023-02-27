@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
-import 'package:flutter_noel/src/constants/images.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
+import 'package:flutter_noel/src/features/screens/product/admin/add_product/add_product_screen.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:get/get.dart';
@@ -18,6 +18,14 @@ class ProductListScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Product List'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.to(() => AddProductScreen());
+              },
+              icon: const Icon(Icons.add),
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -37,9 +45,10 @@ class ProductListScreen extends StatelessWidget {
                       Product product = Product.fromMap(productJson);
                       children.add(
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             FutureBuilder(
-                              future: getImage(product.urlPicture),
+                              future: getImageUrl(product.urlPicture),
                               builder: (BuildContext context,
                                   AsyncSnapshot imageSnapshot) {
                                 if (imageSnapshot.connectionState ==
@@ -58,13 +67,26 @@ class ProductListScreen extends StatelessWidget {
                                 }
                               },
                             ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: ListTile(
-                                title: Text(product.name),
-                                subtitle: Text(product.price.toString()),
-                              ),
-                            )
+                            Column(
+                              children: [
+                                Text(product.name),
+                                Text(product.price.toString()),
+                              ],
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                Get.to(() => AddProductScreen(
+                                      product: product,
+                                    ));
+                              },
+                              icon: const Icon(Icons.edit),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                _productRepository.deleteProduct(product.id);
+                              },
+                              icon: const Icon(Icons.delete),
+                            ),
                           ],
                         ),
                       );
