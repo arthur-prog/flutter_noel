@@ -22,8 +22,11 @@ class AddVariantController extends GetxController {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  String variantId = '';
+
   void addValues(Variant? variant, File? image) async {
     if (variant != null) {
+      variantId = variant.id;
       if(variant.color != null){
         if(colorController.text.isEmpty) {
           colorController.text = variant.color!;
@@ -75,7 +78,7 @@ class AddVariantController extends GetxController {
       var uuid = const Uuid();
       String id = uuid.v4();
       Variant variant = Variant(
-        id: id,
+        id: variantId == '' ? id : variantId,
         color: colorController.text,
         size: sizeController.text,
         price: double.parse(priceController.text),

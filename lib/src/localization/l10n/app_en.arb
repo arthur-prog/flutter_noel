@@ -111,7 +111,6 @@
   "@cameraTitle": {
     "description": "The camera title"
   },
-
   "userEmail": "Email",
   "@userEmail": {
     "description": "User's email"
@@ -207,7 +206,6 @@
   "connectionEmailWrong": "No user found with this email",
   "@connectionEmailWrong": {
     "description": "This message is the text when a connection email doesn't match to any user"
-=======
   "sameImage": "Use same image",
   "@sameImage": {
     "description": "The same image"
