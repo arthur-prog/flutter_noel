@@ -111,6 +111,103 @@
   "@cameraTitle": {
     "description": "The camera title"
   },
+
+  "userEmail": "Email",
+  "@userEmail": {
+    "description": "User's email"
+  },
+  "userPassword": "Password",
+  "@userPassword": {
+    "description": "User's password"
+  },
+  "userName": "Name",
+  "@userName": {
+    "description": "User's name"
+  },
+  "userSurname": "Surname",
+  "@userSurname": {
+    "description": "User's surname"
+  },
+"userCity": "City",
+  "@userCity": {
+    "description": "User's city"
+  },
+"userStreet": "Street",
+  "@userStreet": {
+    "description": "User's street"
+  },
+"userHouseNumber": "House number",
+  "@userHouseNumber": {
+    "description": "User's house number"
+  },
+"userPostCode": "Post code",
+  "@userPostCode": {
+    "description": "User's post code"
+  },
+  "emailIsRequired": "Please enter a email",
+  "@emailIsRequired": {
+    "description": "The error message that appears when you don't enter a email"
+  },
+  "validEmailIsRequired": "Please enter a valid email",
+  "@validEmailIsRequired": {
+    "description": "The error message that appears when you don't enter a valid email"
+  },
+  "passwordIsRequired": "Please enter a password",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a password"
+  },
+  "validPasswordIsRequired": "Your password needs to contain at least 6 characters",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a valid password"
+  },
+  "userNameIsRequired": "Please enter a name",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a name"
+  },
+  "userSurnameIsRequired": "Please enter a surname",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a surname"
+  },
+  "houseNumberIsRequired": "Please enter a house number",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a house number"
+  },
+  "validHouseNumberIsRequired": "Your house number needs to contain at least 1 number",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a valid house number"
+  },
+  "streetIsRequired": "Please enter a steet",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a street"
+  },
+  "cityIsRequired": "Please enter a city",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a city"
+  },
+  "postCodeIsRequired": "Please enter a post code",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a post code"
+  },
+  "validPostCodeIsRequired": "Your post code needs to contain only numbers",
+  "@passwordIsRequired": {
+    "description": "The error message that appears when you don't enter a valid post code"
+  },
+  "connectionMessage": "Connection message",
+  "@connectionMessage": {
+    "description": "This message is the title when a connection action is done"
+  },
+  "connectionDone": "Connection is done !",
+  "@connectionDone": {
+    "description": "This message is the text when a connection is done"
+  },
+  "connectionPasswordWrong": "Wrong password provided for that user !",
+  "@connectionPasswordWrong": {
+    "description": "This message is the text when a connection password for the user is not the good one"
+  },
+  "connectionEmailWrong": "No user found with this email",
+  "@connectionEmailWrong": {
+    "description": "This message is the text when a connection email doesn't match to any user"
+=======
   "sameImage": "Use same image",
   "@sameImage": {
     "description": "The same image"
