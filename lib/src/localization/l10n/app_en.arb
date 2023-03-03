@@ -111,6 +111,7 @@
   "@cameraTitle": {
     "description": "The camera title"
   },
+
   "userEmail": "Email",
   "@userEmail": {
     "description": "User's email"
@@ -206,5 +207,37 @@
   "connectionEmailWrong": "No user found with this email",
   "@connectionEmailWrong": {
     "description": "This message is the text when a connection email doesn't match to any user"
+=======
+  "sameImage": "Use same image",
+  "@sameImage": {
+    "description": "The same image"
+  },
+  "colorIsRequired": "Please enter a product color",
+  "@colorIsRequired": {
+    "description": "The error message that appears when you don't enter a product color"
+  },
+  "sizeIsRequired": "Please enter a product size",
+  "@sizeIsRequired": {
+    "description": "The error message that appears when you don't enter a product size"
+  },
+  "deletedProduct": "Product deleted successfully!",
+  "@deletedProduct": {
+    "description": "The message that appears when a product is deleted successfully"
+  },
+  "deletedVariant": "Variant deleted successfully!",
+  "@deletedVariant": {
+    "description": "The message that appears when a variant is deleted successfully"
+  },
+  "updateProduct": "Update Product",
+  "@updateProduct": {
+    "description": "The message that appears when you want to update a product"
+  },
+  "updatedProduct": "Product updated successfully!",
+  "@updatedProduct": {
+    "description": "The message that appears when a product is updated successfully"
+  },
+  "editVariant": "Edit Variant",
+  "@editVariant": {
+      "description": "The message that appears when you want to edit a variant"
   }
 }

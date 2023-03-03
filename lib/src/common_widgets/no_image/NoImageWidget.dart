@@ -15,7 +15,7 @@ class NoImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
-        future: getImage(noImageUrl),
+        future: getImageUrl(noImageUrl),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
             return SizedBox(

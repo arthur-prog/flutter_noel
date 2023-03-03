@@ -1,31 +1,35 @@
 class Variant {
-  String size;
-  String color;
-  String? imageUrl;
+  String id;
+  String? size;
+  String? color;
+  String? urlPicture;
   double price;
 
   Variant(
       {
-        required this.size,
-        required this.color,
-        this.imageUrl,
+        required this.id,
+        this.size,
+        this.color,
+        this.urlPicture,
         required this.price,
       });
 
   factory Variant.fromMap(Map<String, dynamic> map) {
     return Variant(
+      id: map['id'] ?? "",
       size: map['size'] ?? "",
       color: map['color'] ?? "",
-      imageUrl: map['imageUrl'] ?? "",
+      urlPicture: map['urlPicture'] ?? "",
       price: map['price'] ?? 0.0,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'size': size,
       'color': color,
-      'imageUrl': imageUrl,
+      'urlPicture': urlPicture,
       'price': price,
     };
   }

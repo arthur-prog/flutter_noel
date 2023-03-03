@@ -50,5 +50,12 @@
   "connectionDone" : "La connexion a été effectuée !",
   "connectionPasswordWrong" : "Mauvais mot de passe pour cet utilisateur !",
   "connectionEmailWrong" : "Pas d'utilisateur trouvé avec cette email"
-
+  "sameImage": "Utiliser la même image",
+  "colorIsRequired": "Veuillez entrer une couleur",
+  "sizeIsRequired": "Veuillez entrer une taille",
+  "deletedProduct": "Le produit a bien été supprimé",
+  "deletedVariant": "La variante a bien été supprimée",
+  "updateProduct": "Modifier le produit",
+  "updatedProduct": "Le produit a bien été modifié",
+  "editVariant": "Modifier la variante"
 }
