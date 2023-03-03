@@ -4,12 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTextTheme {
   static TextTheme lightTextTheme = TextTheme(
-    headline1: GoogleFonts.montserrat(
+    headline1: GoogleFonts.poppins(
       color: darkColor,
       fontSize: 28,
       fontWeight: FontWeight.bold,
     ),
-    headline2: GoogleFonts.montserrat(
+    headline2: GoogleFonts.poppins(
       color: darkColor,
       fontSize: 24,
       fontWeight: FontWeight.w700,
@@ -39,19 +39,19 @@ class AppTextTheme {
       fontSize: 14,
       fontWeight: FontWeight.normal,
     ),
-    subtitle1: GoogleFonts.montserrat(
+    subtitle1: GoogleFonts.poppins(
       color: darkColor,
       fontSize: 20,
       fontWeight: FontWeight.w500,
     ),
   );
   static TextTheme darkTextTheme = TextTheme(
-    headline1: GoogleFonts.montserrat(
+    headline1: GoogleFonts.poppins(
       color: lightColor,
       fontSize: 28,
       fontWeight: FontWeight.bold,
     ),
-    headline2: GoogleFonts.montserrat(
+    headline2: GoogleFonts.poppins(
       color: lightColor,
       fontSize: 24,
       fontWeight: FontWeight.w700,
@@ -81,7 +81,7 @@ class AppTextTheme {
       fontSize: 14,
       fontWeight: FontWeight.normal,
     ),
-    subtitle1: GoogleFonts.montserrat(
+    subtitle1: GoogleFonts.poppins(
       color: lightColor,
       fontSize: 20,
       fontWeight: FontWeight.w500,

@@ -110,4 +110,15 @@ class ProductRepository extends GetxController {
     return productsCollection.snapshots();
   }
 
+  Future<Product?> getProductById(String productId) async {
+    try {
+      final result = await productsCollection.doc(productId).get();
+      final productJson = result.data() as Map<String, dynamic>;
+      return Product.fromMap(productJson);
+    } catch (e) {
+        print(e);
+        return null;
+    }
+  }
+
 }
