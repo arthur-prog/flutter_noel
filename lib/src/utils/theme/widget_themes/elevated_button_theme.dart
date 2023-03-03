@@ -5,7 +5,7 @@ class MyElevatedButtonTheme {
   static final lightElevatedButtonTheme = ElevatedButtonThemeData(
     style: OutlinedButton.styleFrom(
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       foregroundColor: lightColor,
       backgroundColor: secondaryColor,
       side: const BorderSide(color: secondaryColor),

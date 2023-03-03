@@ -6,6 +6,7 @@ import 'package:flutter_noel/src/features/screens/user/user_adress_modify_screen
 import 'package:flutter_noel/src/features/screens/user/user_login_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/user_registration_screen.dart';
 import 'package:flutter_noel/src/features/screens/product/admin/product_list/product_list_screen.dart';
+import 'package:flutter_noel/src/features/screens/product/products_list/products_list_screen.dart';
 import 'package:flutter_noel/src/utils/theme/theme.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: LoginUserScreen(),
+      home: ProductsListScreen(),
     );
   }
 }
