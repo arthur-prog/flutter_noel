@@ -55,11 +55,13 @@ class AddVariantScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Center(
-                      child: _controller.image.value == null
-                          ? NoImageWidget(height: MediaQuery.of(context).size.height *  0.3, width: MediaQuery.of(context).size.width *  0.7)
-                          : SizedBox(
-                        height: MediaQuery.of(context).size.height *  0.3,
-                        child: Obx(() => Image.file(_controller.image.value!)),
+                      child: Obx(
+                          () => _controller.image.value == null
+                              ? NoImageWidget(height: MediaQuery.of(context).size.height *  0.3, width: MediaQuery.of(context).size.width *  0.7)
+                              : SizedBox(
+                            height: MediaQuery.of(context).size.height *  0.3,
+                            child: Image.file(_controller.image.value!),
+                          )
                       )
                     ),
                   ),
