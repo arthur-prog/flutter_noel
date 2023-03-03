@@ -49,7 +49,7 @@
   "connectionMessage" : "Message de connexion",
   "connectionDone" : "La connexion a été effectuée !",
   "connectionPasswordWrong" : "Mauvais mot de passe pour cet utilisateur !",
-  "connectionEmailWrong" : "Pas d'utilisateur trouvé avec cette email"
+  "connectionEmailWrong" : "Pas d'utilisateur trouvé avec cette email",
   "sameImage": "Utiliser la même image",
   "colorIsRequired": "Veuillez entrer une couleur",
   "sizeIsRequired": "Veuillez entrer une taille",
