@@ -1,38 +1,71 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_noel/src/features/controllers/home/home_controller.dart';
-import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_noel/src/features/screens/product/admin/product_list/product_list_screen.dart';
+import 'package:flutter_noel/src/features/screens/product/products_list/products_list_screen.dart';
+import 'package:flutter_noel/src/features/screens/user/user_login_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
+    Key? key,
+  }) : super(key: key);
 
-  final _controller = Get.put(HomeController());
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final PageController _pageController = PageController(
+    initialPage: 0,
+  );
+  int currentIndex = 0;
+
+  late Widget childWidget;
+
+  dynamic _scrollPhysics = const ScrollPhysics();
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              ElevatedButton(onPressed: _controller.incrementCounter, child: const Text("press")),
-              Obx(() => Text(_controller.counter.toString())),
-              Text(AppLocalizations.of(context)!.helloWorld,),
-              if (user != null)
-                Text("Vous êtes connecté en tant que ${user.displayName}"),
-              IconButton(
-                icon: Icon(Icons.logout),
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                },
-              ),
-            ],
-          ),
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Colors.grey[500],
+          currentIndex: currentIndex,
+          onTap: (value) {
+            currentIndex = value;
+            _pageController.animateToPage(value,
+                duration: Duration(milliseconds: 200),
+                curve: Curves.linear);
+            setState(() {});
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.party_mode_outlined),
+              label: "Liste",
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.map_outlined),
+              label: "Profil",
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.person_outline_outlined),
+              label: "Panier",
+            ),
+          ],
         ),
-      ),
+        body: PageView(
+          physics: _scrollPhysics,
+          controller: _pageController,
+          onPageChanged: (page) {
+            setState((){
+              currentIndex = page;
+            });
+          },
+          children: <Widget> [
+            ProductsListScreen(),
+            ProductListScreen(),
+            LoginUserScreen(),
+          ],
+        )
     );
   }
 }
