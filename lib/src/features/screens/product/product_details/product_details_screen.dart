@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
+import 'package:flutter_noel/src/features/models/Variant.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:flutter_noel/src/features/controllers/product/product_details/product_details_controller.dart';
@@ -8,11 +9,26 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 //add dev
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
   ProductDetailsScreen({Key? key, required this.product}) : super(key: key);
 
   final Product product;
+
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final _controller = Get.put(ProductDetailsController());
+
+  final _productRepository = Get.put(ProductRepository());
+
+  @override
+  void initState(){
+    _controller.price.value = widget.product.price.toString();
+    _controller.image.value = widget.product.urlPicture;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,25 +60,28 @@ class ProductDetailsScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height * .35,
             padding: const EdgeInsets.only(bottom: 30),
             width: double.infinity,
-            child: FutureBuilder(
-              future: getImageUrl(product.urlPicture),
-              builder: (BuildContext context,
-                  AsyncSnapshot imageSnapshot) {
-                if (imageSnapshot.connectionState ==
-                    ConnectionState.done){
-                  if (imageSnapshot.hasData) {
-                    return Image.network(
-                      imageSnapshot.data,
-                      width: 100,
-                      height: 100,
-                    );
+            child: Obx(
+              () => FutureBuilder(
+                future: getImageUrl(_controller.image.value),
+                builder: (BuildContext context,
+                    AsyncSnapshot imageSnapshot) {
+                  if (imageSnapshot.connectionState ==
+                      ConnectionState.done){
+                    if (imageSnapshot.hasData) {
+                      return Image.network(
+                        imageSnapshot.data,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      );
+                    } else {
+                      return const NoImageWidget(height: 100, width: 100);
+                    }
                   } else {
-                    return const NoImageWidget(height: 100, width: 100);
+                    return const CircularProgressIndicator();
                   }
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
+                },
+              ),
             ),
           ),
           Expanded(
@@ -82,7 +101,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          product.category,
+                          widget.product.category,
                           style: GoogleFonts.poppins(
                             fontSize: 15,
                             color: Colors.grey,
@@ -92,24 +111,26 @@ class ProductDetailsScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              product.name,
+                              widget.product.name,
                               style: GoogleFonts.poppins(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            Text(
-                              '${product.price}€',
-                              style: GoogleFonts.poppins(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
+                            Obx(
+                              () => Text(
+                                '${_controller.price.value}€',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 15),
                         Text(
-                          product.description,
+                          widget.product.description,
                           style: GoogleFonts.poppins(
                             fontSize: 15,
                             color: Colors.grey,
@@ -124,29 +145,24 @@ class ProductDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        /*SizedBox(
+                        SizedBox(
                           height: 110,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: smProducts.length,
-                            itemBuilder: (context, index) => Container(
-                              margin: const EdgeInsets.only(right: 6),
-                              width: 110,
-                              height: 110,
-                              decoration: BoxDecoration(
-                                color: AppColors.kSmProductBgColor,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                child: Image(
-                                  height: 70,
-                                  image: AssetImage(smProducts[index].image),
-                                ),
-                              ),
-                            ),
-                          ),
+                          child: FutureBuilder(
+                            future: _productRepository.getVariants(widget.product),
+                            builder: (BuildContext context, AsyncSnapshot snapshotVariants) {
+                                if (snapshotVariants.connectionState == ConnectionState.done){
+                                if (snapshotVariants.hasData) {
+                                      return _controller.buildVariantsPictures(snapshotVariants.data!);
+                                } else {
+                                      return const Text('nn');
+                                }
+                                } else {
+                                      return const CircularProgressIndicator();
+                                }
+                            },
+                          )
                         ),
-                        const SizedBox(height: 20),*/
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),
