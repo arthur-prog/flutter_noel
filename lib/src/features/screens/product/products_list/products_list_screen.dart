@@ -25,9 +25,11 @@ class ProductsListScreen extends StatelessWidget {
           elevation: 0,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                _controller.toProductSearched();
+              },
               icon: const Icon(
-                Icons.shopping_cart,
+                Icons.search,
                 color: Colors.black,
               ),
             ),
@@ -66,10 +68,10 @@ class ProductsListScreen extends StatelessWidget {
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                                   child: Column(
-                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Row(
-                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Expanded(
                                             child: ClipRRect(
@@ -163,17 +165,17 @@ class ProductsListScreen extends StatelessWidget {
                                   onPressed: () {},
                                   child: Text('Filtres', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white))
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
+                        height: MediaQuery.of(context).size.height * 1.2,
                         child: GridView(
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                              childAspectRatio: 1
+                                childAspectRatio: 1
                             ),
                             children: children
                         ),
