@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
+import 'package:flutter_noel/src/features/controllers/product/filtered_products/filtered_products_controller.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
@@ -8,11 +9,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 //add dev
-class ProductsListScreen extends StatelessWidget {
-  ProductsListScreen({Key? key}) : super(key: key);
+class FilteredProductsScreen extends StatelessWidget {
+
+  FilteredProductsScreen({Key? key, required this.filter}) : super(key: key);
+
+  String filter;
 
   final _productRepository = Get.put(ProductRepository());
-  final _controller = Get.put(ProductsListController());
+  final _controller = Get.put(FilteredProductsController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,15 @@ class ProductsListScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text('Liste produit', style: GoogleFonts.poppins(fontWeight: FontWeight.w600, color: Colors.black)),
+          title: Text('Liste filtrée par : ${filter}', style: GoogleFonts.poppins(fontWeight: FontWeight.w600, color: Colors.black)),
           elevation: 0,
+          leading: IconButton(
+            onPressed: () {_controller.back();},
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+          ),
           actions: [
             IconButton(
               onPressed: () {
@@ -39,12 +50,12 @@ class ProductsListScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: StreamBuilder(
-                stream: _productRepository.getProductsSnapshots(),
+                stream: _productRepository.getProductsSnapshotsByCategories(filter),
                 builder: (BuildContext context, AsyncSnapshot productsSnapshot) {
                   List<Widget> children = [];
                   if (productsSnapshot.hasData) {
                     if (productsSnapshot.data!.docs.isEmpty) {
-                        return const Text("no product");
+                      return const Text("no product");
                     } else {
                       productsSnapshot.data!.docs.forEach((doc) {
                         Map<String, dynamic> productJson = doc.data();
@@ -132,11 +143,11 @@ class ProductsListScreen extends StatelessWidget {
                                             Padding(
                                               padding: const EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
                                               child: Text(
-                                                  product.price.toString(),
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 10,
-                                                    color: Colors.grey,
-                                                    fontWeight: FontWeight.w400,
+                                                product.price.toString(),
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 10,
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.w400,
                                                 ),
                                               ),
                                             ),
@@ -152,7 +163,7 @@ class ProductsListScreen extends StatelessWidget {
                       });
                     }
                   } else {
-                     return const CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                   return Column(
                     children: [
@@ -172,49 +183,6 @@ class ProductsListScreen extends StatelessWidget {
                 },
               ),
             )
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    height: 100,
-                    color: Colors.white70,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                              'Filtrer par :',
-                              style: GoogleFonts.poppins(fontWeight: FontWeight.w600, color: Colors.black)
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {_controller.toFilteredProducts("hat");},
-                                  child: Text("Hat")
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {_controller.toFilteredProducts("glove");},
-                                  child: Text("Glove")
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {_controller.toFilteredProducts("sweater");},
-                                  child: Text("Sweater")
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-            );
-          },
-          backgroundColor: Colors.black,
-          child: const Icon(Icons.filter_alt_sharp),
         ),
       ),
     );
