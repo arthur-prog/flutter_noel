@@ -111,20 +111,13 @@ class ProductRepository extends GetxController {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getProductsSnapshotsByCategories(String category) {
-    return productsCollection.where('category', isEqualTo: category).snapshots();
-  }
-
- /* Future<List<Product>> getProductsByCategory(String category) async {
-    List<Product> products = [];
-    QuerySnapshot<Object?> query = await productsCollection.where('category', isEqualTo: category).get();
-    if (query.docs.isNotEmpty) {
-      for (var product in query.docs) {
-        final productJson = product.data() as Map<String, dynamic>;
-        products.add(Product.fromMap(productJson));
-      }
+    if(category == ''){
+      return productsCollection.snapshots();
     }
-    return products;
-  }*/
+    else {
+      return productsCollection.where('category', isEqualTo: category).snapshots();
+    }
+  }
 
   Future<Product?> getProductById(String productId) async {
     try {
