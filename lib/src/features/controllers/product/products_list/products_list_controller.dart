@@ -11,11 +11,11 @@ import 'package:flutter_noel/src/features/screens/product/product_details/produc
 class ProductsListController extends GetxController {
   static ProductsListController get instance => Get.find();
 
-  final _productRepository = Get.put(ProductRepository());
   Rx<String> category = ''.obs;
 
   void displayFilteredProduct(String filter) async{
     category.value = filter;
+    Get.back();
   }
 
   void toProductDetails(Product product){
