@@ -195,6 +195,10 @@ class ProductsListScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               ElevatedButton(
+                                  onPressed: () {_controller.displayFilteredProduct("");},
+                                  child: Text("All")
+                              ),
+                              ElevatedButton(
                                   onPressed: () {_controller.displayFilteredProduct("hat");},
                                   child: Text("Hat")
                               ),
