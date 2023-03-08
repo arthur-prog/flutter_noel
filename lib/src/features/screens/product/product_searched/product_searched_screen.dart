@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
 import 'package:flutter_noel/src/features/controllers/product_searched/product_searched_controller.dart';
-import 'package:flutter_noel/src/features/models/Product.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
-import 'package:flutter_noel/src/utils/utils.dart';
-import 'package:flutter_noel/src/features/controllers/product/products_list/products_list_controller.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 //add dev
 class ProductSearchedScreen extends StatefulWidget {
@@ -44,8 +40,7 @@ class _ProductSearchedScreenState extends State<ProductSearchedScreen> {
             child: TextField(
               controller: _controller.productController,
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Search...'
+                prefixIcon: Icon(Icons.search)
               ),
             ),
           ),

@@ -8,6 +8,7 @@ import 'package:flutter_noel/src/features/models/Variant.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class ProductDetailsController extends GetxController {
@@ -26,8 +27,8 @@ class ProductDetailsController extends GetxController {
     price.value = variant.price.toString();
   }
 
-  ListView buildVariantsPictures(
-      List<Variant> variants,
+  ListView buildVariants(
+      List<Variant> variants
       )
   {
     List<Widget> children = [];
@@ -36,35 +37,44 @@ class ProductDetailsController extends GetxController {
       children.add(
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: FutureBuilder(
-                future: getImageUrl(variant.urlPicture!),
-                builder: (BuildContext context,
-                    AsyncSnapshot imageSnapshot) {
-                  if (imageSnapshot.connectionState ==
-                      ConnectionState.done) {
-                    if (imageSnapshot.hasData) {
-                      return GestureDetector(
-                          child: Image.network(
+            child: SizedBox(
+              width: 200,
+              height: 200,
+              child: FutureBuilder(
+                  future: getImageUrl(variant.urlPicture!),
+                  builder: (BuildContext context,
+                      AsyncSnapshot imageSnapshot) {
+                    if (imageSnapshot.connectionState ==
+                        ConnectionState.done) {
+                      if (imageSnapshot.hasData) {
+                        return ListTile(
+                          leading: Image.network(
                             imageSnapshot.data,
-                            width: 50,
-                            height: 50,
                           ),
+                          title: variant.color!.isNotEmpty ? Text(variant.color!) : Text(variant.size!),
+                          subtitle: variant.size!.isNotEmpty ? Text(variant.size!) : const Text(''),
                           onTap: () {displayVariant(variant);},
-                      );
+                        );
+                      } else {
+                        return ListTile(
+                          leading: const NoImageWidget(height: 75, width: 75),
+                          title: variant.color!.isNotEmpty ? Text(variant.color!) : Text('Taille'),
+                          subtitle: variant.size!.isNotEmpty ? Text(variant.size!) : const Text(''),
+                          onTap: () {displayVariant(variant);},
+                        );
+                      }
                     } else {
-                      return const NoImageWidget(height: 50, width: 50);
+                      return const CircularProgressIndicator();
                     }
-                  } else {
-                    return const CircularProgressIndicator();
                   }
-                }
+              ),
             ),
           )
       );
     });
     return ListView(
-      scrollDirection: Axis.horizontal,
-      children: children,
+            scrollDirection: Axis.horizontal,
+            children: children,
     );
   }
 }

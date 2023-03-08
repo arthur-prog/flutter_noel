@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
-import 'package:flutter_noel/src/features/models/Variant.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:flutter_noel/src/features/controllers/product/product_details/product_details_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 //add dev
 class ProductDetailsScreen extends StatefulWidget {
@@ -137,14 +137,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                         const SizedBox(height: 15),
-                        Text(
-                          'Coloris disponibles',
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
                         SizedBox(
                           height: 110,
                           child: FutureBuilder(
@@ -152,9 +144,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             builder: (BuildContext context, AsyncSnapshot snapshotVariants) {
                                 if (snapshotVariants.connectionState == ConnectionState.done){
                                 if (snapshotVariants.hasData) {
-                                      return _controller.buildVariantsPictures(snapshotVariants.data!);
+                                      return _controller.buildVariants(snapshotVariants.data!);
                                 } else {
-                                      return const Text('nn');
+                                      return const CircularProgressIndicator();
                                 }
                                 } else {
                                       return const CircularProgressIndicator();
@@ -199,7 +191,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {},
-                    child: Text('Ajouter au panier',
+                    child: Text(AppLocalizations.of(context)!.addToCart,
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white))
                 ),
               )

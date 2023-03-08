@@ -6,6 +6,7 @@ import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:flutter_noel/src/features/controllers/product/products_list/products_list_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 //add dev
 class ProductsListScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class ProductsListScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text('Liste produit', style: GoogleFonts.poppins(fontWeight: FontWeight.w600, color: Colors.black)),
+          title: Text(AppLocalizations.of(context)!.productsList, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, color: Colors.black)),
           elevation: 0,
           actions: [
             IconButton(
@@ -188,7 +189,7 @@ class ProductsListScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                              'Filtrer par :',
+                              AppLocalizations.of(context)!.filteredBy,
                               style: GoogleFonts.poppins(fontWeight: FontWeight.w600, color: Colors.black)
                           ),
                           Row(
@@ -196,19 +197,19 @@ class ProductsListScreen extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                   onPressed: () {_controller.displayFilteredProduct("");},
-                                  child: Text("All")
+                                  child: Text((AppLocalizations.of(context)!.all))
                               ),
                               ElevatedButton(
                                   onPressed: () {_controller.displayFilteredProduct("hat");},
-                                  child: Text("Hat")
+                                  child: Text((AppLocalizations.of(context)!.hat))
                               ),
                               ElevatedButton(
                                   onPressed: () {_controller.displayFilteredProduct("glove");},
-                                  child: Text("Glove")
+                                  child: Text((AppLocalizations.of(context)!.gloves))
                               ),
                               ElevatedButton(
                                   onPressed: () {_controller.displayFilteredProduct("sweater");},
-                                  child: Text("Sweater")
+                                  child: Text((AppLocalizations.of(context)!.sweater))
                               ),
                             ],
                           ),
