@@ -81,9 +81,9 @@ class VariantFormWidget extends StatelessWidget {
                             Obx(
                                 () => _controller.variantImages.isNotEmpty
                                     ? !_controller.isSameImageSelected.value
-                                    ? _controller.variantImages.length > index
+                                    ? _controller.variantImages.length > index && _controller.variantImages[_controller.variants[index].id] != null
                                     ? Image.file(
-                                      _controller.variantImages[index]!,
+                                      _controller.variantImages[_controller.variants[index].id]!,
                                       width: 50.0,
                                       height: 50.0,
                                     ) : const NoImageWidget(height: 50, width: 50)

@@ -108,8 +108,6 @@ class ModifyUserAdressController extends GetxController {
         'codepostal': codePostal,
       };
       await _userRepository.modifyUserAdress(user, data);
-
-
     }
   }
 }

@@ -18,10 +18,9 @@ class AddProductScreen extends StatelessWidget {
 
   late Product? product;
 
-  final _controller = Get.put(AddProductController());
-
   @override
   Widget build(BuildContext context) {
+    final _controller = Get.put(AddProductController());
     _controller.addValues(product);
     return SafeArea(
       child: Scaffold(

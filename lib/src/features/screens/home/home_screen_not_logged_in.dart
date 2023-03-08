@@ -3,19 +3,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_noel/src/features/screens/product/admin/product_list/product_list_screen.dart';
 import 'package:flutter_noel/src/features/screens/product/products_list/products_list_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/login/login_screen.dart';
-import 'package:flutter_noel/src/features/screens/user/profile/profile_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/user_login_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+class HomeScreenNotLoggedIn extends StatefulWidget {
+  const HomeScreenNotLoggedIn({
     Key? key,
   }) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreenNotLoggedInState createState() => _HomeScreenNotLoggedInState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenNotLoggedInState extends State<HomeScreenNotLoggedIn> {
   final PageController _pageController = PageController(
     initialPage: 0,
   );
@@ -48,10 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.map_outlined),
               label: "Profil",
             ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.person_outline_outlined),
-              label: "Panier",
-            ),
           ],
         ),
         body: PageView(
@@ -65,7 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget> [
             ProductsListScreen(),
             ProductListScreen(),
-            ProfileScreen(),
           ],
         )
     );
