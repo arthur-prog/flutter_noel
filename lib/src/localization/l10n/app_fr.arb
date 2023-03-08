@@ -84,4 +84,12 @@
   "signUpTitle": "Créer un compte",
   "signUpSubTitle": "Créer un compte pour profiter de toutes les fonctionnalités",
   "editProfile" : "Modifier le profil"
+  "addToCart": "Ajouter au panier",
+  "productsList": "Liste des produits",
+  "filteredBy": "Filtrer par :",
+  "all": "Tous",
+  "hat": "Chapeau",
+  "gloves": "Gants",
+  "sweater": "Sweat",
+  "search": "Rechercher..."
 }
