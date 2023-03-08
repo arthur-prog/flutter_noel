@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_noel/src/features/controllers/user/login_user/login_user_controller.dart';
+import 'package:flutter_noel/src/features/controllers/user/login/login_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -8,7 +8,7 @@ class LoginUserScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final _controller = Get.put(LoginUserController());
+  final _controller = Get.put(LoginController());
 
 
   @override

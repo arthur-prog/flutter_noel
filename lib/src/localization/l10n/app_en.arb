@@ -238,5 +238,136 @@
   "editVariant": "Edit Variant",
   "@editVariant": {
       "description": "The message that appears when you want to edit a variant"
+  },
+  "loginTitle": "Welcome back",
+  "@loginTitle": {
+    "description": "The login title"
+  },
+  "loginSubTitle": "Login to your account",
+  "@loginSubTitle": {
+    "description": "The login sub title"
+  },
+  "dontHaveAccount": "Don't have an account? ",
+  "@dontHaveAccount": {
+    "description": "The don't have an account"
+  },
+  "signUp": "Sign up",
+  "@signUp": {
+    "description": "The sign up"
+  },
+  "login": "Login",
+  "@login": {
+    "description": "The login"
+  },
+  "alreadyHaveAccount": "Already have an account? ",
+  "@alreadyHaveAccount": {
+    "description": "The already have an account"
+  },
+  "invalidCredentialsException": "Invalid credentials. Please try again.",
+  "@invalidCredentialsException": {
+    "description": "The invalid credentials exception"
+  },
+  "accountExistsWithDifferentCredentialException": "An account already exists for this email address.",
+  "@accountExistsWithDifferentCredentialException": {
+    "description": "The account exists with different credential exception"
+  },
+  "invalidActionCodeException": "The action code in the link is malformed, expired, or has already been used. Please try again.",
+  "@invalidActionCodeException": {
+    "description": "The invalid action code exception"
+  },
+  "operationNotAllowedException": "Operation not allowed. Please contact support.",
+  "@operationNotAllowedException": {
+    "description": "The operation not allowed exception"
+  },
+  "userDisabledException": "Your account has been disabled. Please contact support for help.",
+  "@userDisabledException": {
+    "description": "The user disabled exception"
+  },
+  "or": "OR",
+  "@or": {
+    "description": "The or"
+  },
+  "signInWithGoogle": "Sign-In with Google",
+  "@signInWithGoogle": {
+    "description": "The sign in with google"
+  },
+  "profile": "Profile",
+  "@profile": {
+      "description": "The profile"
+  },
+  "orders": "Orders",
+  "@orders": {
+      "description": "The orders"
+  },
+  "settings": "Settings",
+  "@settings": {
+      "description": "The settings"
+  },
+  "weakPasswordException": "Please enter a stronger password.",
+  "@weakPasswordException": {
+    "description": "The weak password exception"
+  },
+  "invalidEmailException": "Please enter a valid email address.",
+  "@invalidEmailException": {
+    "description": "The invalid email exception"
+  },
+  "emailAlreadyInUseException": "An account already exists for this email address.",
+  "@emailAlreadyInUseException": {
+    "description": "The email already in use exception"
+  },
+  "userNotFoundException": "There is no user having this email address.",
+  "@userNotFoundException": {
+    "description": "The user not found exception"
+  },
+  "wrongPasswordException": "The password is invalid.",
+  "@wrongPasswordException": {
+    "description": "The wrong password exception"
+  },
+  "tooManyRequestsException": "Too many attempts to sign in. Please try again later.",
+  "@tooManyRequestsException": {
+    "description": "The too many requests exception"
+  },
+  "signUpTitle": "Create an account",
+  "@signUpTitle": {
+    "description": "The sign up title"
+  },
+  "signUpSubTitle": "Sign up to your account",
+  "@signUpSubTitle": {
+    "description": "The sign up sub title"
+  },
+  "editProfile" : "Edit Profile",
+  "@editProfile" : {
+    "description" : "The edit profile"
+  "addToCart": "Add to cart",
+  "@addToCart": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "filteredBy": "Filter by : ",
+  "@filteredBy": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "productsList": "Products List",
+  "@productsList": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "all": "All",
+  "@all": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "hat": "Hat",
+  "@hat": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "gloves": "Gloves",
+  "@gloves": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "sweater": "Sweater",
+  "@sweater": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "search": "Search...",
+  "@search": {
+    "description": "The message that appears when you want to edit a variant"
   }
 }

@@ -11,12 +11,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:uuid/uuid.dart';
 
 Future<File> urlToFile(String imageUrl) async {
-  var rng = Random();
+  var uuid = const Uuid();
+  String id = uuid.v4();
   Directory tempDir = await getTemporaryDirectory();
   String tempPath = tempDir.path;
-  File file = File('$tempPath${rng.nextInt(100)}.png');
+  File file = File('$tempPath$id.png');
   Uri uri = Uri.parse(imageUrl);
   http.Response response = await http.get(uri);
   await file.writeAsBytes(response.bodyBytes);

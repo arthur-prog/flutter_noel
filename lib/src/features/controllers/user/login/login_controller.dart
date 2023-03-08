@@ -4,19 +4,20 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
-class LoginUserController extends GetxController{
-  static LoginUserController get instance => Get.find();
+class LoginController extends GetxController{
+  static LoginController get instance => Get.find();
 
   final _userRepository = Get.put(UserRepository());
-
 
   final GlobalKey<FormState >formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
-  void changeEmail(value){
-    emailController.value = value;
+  Rx<bool> isPasswordNotVisible = true.obs;
+
+  void changePasswordVisibility(){
+    isPasswordNotVisible.value = !isPasswordNotVisible.value;
   }
 
   String? validateEmail(String value){
@@ -28,10 +29,6 @@ class LoginUserController extends GetxController{
       return AppLocalizations.of(Get.context!)!.validEmailIsRequired;
     }
     return null;
-  }
-
-  void changePassword(value){
-    passwordController.value = value;
   }
 
   String? validatePassword(String value){
