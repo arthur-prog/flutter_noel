@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
+import 'package:flutter_noel/src/features/screens/user/login/login_screen.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:flutter_noel/src/features/controllers/product/products_list/products_list_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-//add dev
 class ProductsListScreen extends StatelessWidget {
   ProductsListScreen({Key? key}) : super(key: key);
 
@@ -20,6 +20,15 @@ class ProductsListScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Get.to(() => const LoginScreen());
+            },
+            icon: const Icon(
+              Icons.login,
+              color: Colors.black,
+            ),
+          ),
           backgroundColor: Colors.white,
           title: Text('Liste produit', style: GoogleFonts.poppins(fontWeight: FontWeight.w600, color: Colors.black)),
           elevation: 0,

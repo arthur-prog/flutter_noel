@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "154668288998-8flrfivvtrbaonvub8et6qfi1tmvl37n.apps.googleusercontent.com",
+          "client_id": "154668288998-s2htstdok08dcsacgtnlacchijjlq0qu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.flutter_noel",
@@ -37,6 +37,13 @@
             {
               "client_id": "154668288998-fahfgfihrlm30hpn47u85ueskkq0705q.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "154668288998-n7k0cmcgpc7v00q9qi0cljm7sigg2s2b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterNoel"
+              }
             }
           ]
         }
