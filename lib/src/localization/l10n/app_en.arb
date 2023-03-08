@@ -238,5 +238,37 @@
   "editVariant": "Edit Variant",
   "@editVariant": {
       "description": "The message that appears when you want to edit a variant"
+  },
+  "addToCart": "Add to cart",
+  "@addToCart": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "filteredBy": "Filter by : ",
+  "@filteredBy": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "productsList": "Products List",
+  "@productsList": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "all": "All",
+  "@all": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "hat": "Hat",
+  "@hat": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "gloves": "Gloves",
+  "@gloves": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "sweater": "Sweater",
+  "@sweater": {
+    "description": "The message that appears when you want to edit a variant"
+  },
+  "search": "Search...",
+  "@search": {
+    "description": "The message that appears when you want to edit a variant"
   }
 }

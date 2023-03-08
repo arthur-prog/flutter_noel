@@ -57,5 +57,13 @@
   "deletedVariant": "La variante a bien été supprimée",
   "updateProduct": "Modifier le produit",
   "updatedProduct": "Le produit a bien été modifié",
-  "editVariant": "Modifier la variante"
+  "editVariant": "Modifier la variante",
+  "addToCart": "Ajouter au panier",
+  "productsList": "Liste des produits",
+  "filteredBy": "Filtrer par :",
+  "all": "Tous",
+  "hat": "Chapeau",
+  "gloves": "Gants",
+  "sweater": "Sweat",
+  "search": "Rechercher..."
 }
