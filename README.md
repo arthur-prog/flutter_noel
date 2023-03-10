@@ -39,3 +39,6 @@ Url : https://flutter-noel-fritsch-becker-destremont.pages.dev/remove_favorite.h
 ou si vous voulez supprimer un variant :
 
 Url : https://flutter-noel-fritsch-becker-destremont.pages.dev/remove_favorite.html?id_customer=...&id_product=...&id_variant
+
+
+### L'application est multilingue (fr/en) et possède un thème clair et un thème sombre.
