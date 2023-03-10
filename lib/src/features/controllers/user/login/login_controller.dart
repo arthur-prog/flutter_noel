@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_noel/src/repository/user_repository/user_repository.dart';
+import 'package:flutter_noel/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class LoginController extends GetxController{
   static LoginController get instance => Get.find();
 
-  final _userRepository = Get.put(UserRepository());
+  final _authRepository = Get.put(AuthenticationRepository());
 
   final GlobalKey<FormState >formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
@@ -39,9 +39,9 @@ class LoginController extends GetxController{
   }
 
 
-  void loginUser() async {
+  void loginUser() {
     if (formKey.currentState!.validate()) {
-      await _userRepository.loginUser(emailController, passwordController);
+      _authRepository.signInWithEmailandPassword(emailController.text, passwordController.text);
     }
   }
 
