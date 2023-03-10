@@ -105,5 +105,6 @@
   "next" : "Suivant",
   "favorites" : "Favoris",
   "noProducts" : "Aucun produits",
-  "pay" : "Payer"
+  "pay" : "Payer",
+  "noOrders" : "Aucune commande"
 }

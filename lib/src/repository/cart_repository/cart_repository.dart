@@ -216,10 +216,8 @@ class CartRepository extends GetxController {
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getCartProductsSnapshots() {
     final user = FirebaseAuth.instance.currentUser;
-    final cartDoc =
-        FirebaseFirestore.instance.collection('cart').doc(user?.uid);
+    final cartDoc =  FirebaseFirestore.instance.collection('cart').doc(user?.uid);
     final cartProductsCollection = cartDoc.collection('cartProducts');
-    print(cartProductsCollection.snapshots());
     return cartProductsCollection.snapshots();
   }
 }
