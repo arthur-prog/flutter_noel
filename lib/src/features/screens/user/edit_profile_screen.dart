@@ -1,35 +1,66 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_noel/src/features/controllers/user/modify_adress_user/modify_adress_user_controller.dart';
+import 'package:flutter_noel/src/constants/colors.dart';
+import 'package:flutter_noel/src/features/controllers/user/edit_profile/edit_profile_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ModifyUserAdressScreen extends StatelessWidget {
-  ModifyUserAdressScreen({
+class EditProfileScreen extends StatelessWidget {
+  EditProfileScreen({
     Key? key,
   }) : super(key: key);
 
-  final _controller = Get.put(ModifyUserAdressController());
+  final _controller = Get.put(EditProdileController());
 
 
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Modify Adress'),
+        backgroundColor: isDark ? Theme.of(context).cardColor : primaryColor,
+        title: Text(
+          AppLocalizations.of(context)!.editProfile,
+        ),
       ),
       body: SingleChildScrollView(
         child:
         Center(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(20.0),
             child: Form(
               key: _controller.formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    validator: (value) =>
+                        _controller.validateFirstName(value!),
+                    controller: _controller.firstNameController,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!
+                          .firstName,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    validator: (value) =>
+                        _controller.validateLastName(value!),
+                    controller: _controller.lastNameController,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!
+                          .lastName,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   TextFormField(
                     validator: (value) =>
                         _controller.validateHouseNumber(value!),
@@ -38,6 +69,9 @@ class ModifyUserAdressScreen extends StatelessWidget {
                       labelText: AppLocalizations.of(context)!
                           .userHouseNumber,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   TextFormField(
                     validator: (value) =>
@@ -48,6 +82,9 @@ class ModifyUserAdressScreen extends StatelessWidget {
                           .userStreet,
                     ),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   TextFormField(
                     validator: (value) =>
                         _controller.validateCity(value!),
@@ -57,8 +94,9 @@ class ModifyUserAdressScreen extends StatelessWidget {
                           .userCity,
                     ),
                   ),
-                  if (user != null)
-                    Text("Vous êtes connecté en tant que ${user.displayName}"),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   TextFormField(
                     validator: (value) =>
                         _controller.validateCP(value!),
@@ -68,10 +106,16 @@ class ModifyUserAdressScreen extends StatelessWidget {
                           .userPostCode,
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () => _controller.modifyUserAdress(),
-                    child: Text(
-                      AppLocalizations.of(context)!.validate,
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => _controller.updateProfile(),
+                      child: Text(
+                        AppLocalizations.of(context)!.validate,
+                      ),
                     ),
                   ),
                 ],

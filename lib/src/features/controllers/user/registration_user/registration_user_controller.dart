@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/features/models/Cart.dart';
 import 'package:flutter_noel/src/features/models/Favorite.dart';
 import 'package:flutter_noel/src/features/models/User.dart';
+import 'package:flutter_noel/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter_noel/src/repository/favorite_repository/favorite_repository.dart';
 import 'package:flutter_noel/src/repository/user_repository/user_repository.dart';
 import 'package:flutter_noel/src/repository/cart_repository/cart_repository.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class RegistrationUserController extends GetxController {
   static RegistrationUserController get instance => Get.find();
 
-  final _userRepository = Get.put(UserRepository());
+  final _authRepository = Get.put(AuthenticationRepository());
   final _cartRepository = Get.put(CartRepository());
   final _favoriteRepository = Get.put(FavoriteRepository());
 
@@ -135,9 +136,10 @@ class RegistrationUserController extends GetxController {
       int houseNumber = int.parse(houseNumberController.text);
       int codePostal = int.parse(CPController.text);
 
-      UserData user = UserData(
+      UserData userData = UserData(
         id: '',
         email: emailController.text,
+        isAdmin: false,
         name : nameController.text,
         surname : surnameController.text,
         housenumber: houseNumber,
@@ -145,7 +147,8 @@ class RegistrationUserController extends GetxController {
         city: cityController.text,
         codepostal: codePostal,
       );
-      await _userRepository.addUser(user, emailController.text, passwordController.text, nameController.text, surnameController.text);
+
+      _authRepository.createUserWithEmailandPassword(passwordController.text, userData);
 
       Cart cart = Cart(
         id: '',

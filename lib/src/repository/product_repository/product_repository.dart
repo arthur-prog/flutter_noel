@@ -59,6 +59,7 @@ class ProductRepository extends GetxController {
 
   Future<void> deleteProduct(String productId) {
     final productDoc = productsCollection.doc(productId);
+    deleteVariantSubcollections(productId);
     return productDoc.delete().whenComplete(
           () => SnackBarInformationWidget(
         text: AppLocalizations.of(Get.context!)!.deletedProduct,
@@ -83,6 +84,20 @@ class ProductRepository extends GetxController {
     return variantDoc.delete()
         .catchError((error, stackTrace) {
       print(error.toString());
+    });
+  }
+
+  void deleteVariantSubcollections(String productId) {
+    Future<QuerySnapshot> variants = productsCollection.doc(productId).collection("variants").get();
+    variants.then((value) {
+      value.docs.forEach((element) {
+        productsCollection
+            .doc(productId)
+            .collection("variants")
+            .doc(element.id)
+            .delete()
+            .then((value) => print("success"));
+      });
     });
   }
 

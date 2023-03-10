@@ -91,5 +91,13 @@
   "gloves": "Gants",
   "search": "Rechercher...",
   "products": "Produits",
-  "cart": "Panier"
+  "cart": "Panier",
+  "themeMode": "Theme",
+  "createdAccount" : "Votre compte a bien été créé",
+  "updatedAccount" : "Vos informations ont bien été mises à jour.",
+  "firstName" : "Prénom",
+  "lastName" : "Nom",
+  "firstNameIsRequired" :  "Veuillez entrer un nom",
+  "lastNameIsRequired" : "Veuillez entrer un prénom",
+  "admin" : "Admin"
 }
