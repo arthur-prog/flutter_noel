@@ -421,7 +421,8 @@
   },
   "noProducts" : "No products",
   "@noProducts" : {
-      "description" : "The no products"
+    "description": "The no products"
+  },
   "pay": "Pay",
   "@pay": {
       "description": "Payement"
