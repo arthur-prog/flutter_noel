@@ -9,6 +9,7 @@ import 'package:flutter_noel/src/features/models/Product.dart';
 import 'package:flutter_noel/src/features/models/User.dart';
 import 'package:flutter_noel/src/features/screens/home/home_screen.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class CartRepository extends GetxController {
   static CartRepository get instance => Get.find();
@@ -126,6 +127,92 @@ class CartRepository extends GetxController {
       await cartProductsDoc.delete();
     }
   }
+
+  Future<void> deleteCart(String cartProductId) {
+    final cartProductDoc = cartCollection.doc(cartProductId);
+    return cartProductDoc.delete().whenComplete(() => print('YESSSSSSSSSSSSSSSSSSSSSS'))
+        .catchError((error, stackTrace) {
+      SnackBarInformationWidget(
+        text: AppLocalizations.of(Get.context!)!.somethingWentWrong,
+        title: AppLocalizations.of(Get.context!)!.error,
+        type: "error",
+      );
+      print(error.toString());
+    });
+  }
+
+  Future<void> deleteCartProduct(String cartProductId, String userId) {
+    final cartDoc = cartCollection.doc(userId);
+    final cartProductDoc = cartDoc.collection('cartProducts').doc(cartProductId);
+    return cartProductDoc.delete().whenComplete(() => print('YESSSSSSSSSSSSSSSSSSSSSS'))
+        .catchError((error, stackTrace) {
+      SnackBarInformationWidget(
+        text: AppLocalizations.of(Get.context!)!.somethingWentWrong,
+        title: AppLocalizations.of(Get.context!)!.error,
+        type: "error",
+      );
+      print(error.toString());
+    });
+  }
+
+  Future<void> createCart() async {
+    final cartDoc = FirebaseFirestore.instance.doc('cart/1');
+    cartDoc.set({'title' : 'GNEU'});
+  }
+
+
+  Future<void> validateOrder(double total) async {
+    var uuid = const Uuid();
+    var id = uuid.v4();
+    final user = FirebaseAuth.instance.currentUser;
+
+    final cartDoc = FirebaseFirestore.instance.doc('cart/${user?.uid}');
+    final cartProductsCollection = cartDoc.collection('cartProducts');
+
+    final ordersProductDoc =  FirebaseFirestore.instance.doc('orders/${user?.uid}/order/${id}');
+    final orderProductCollection = ordersProductDoc.collection('orderProducts');
+
+    await cartProductsCollection.get().then((querySnapshot) {
+      querySnapshot.docs.forEach((productDoc) {
+        orderProductCollection.doc(productDoc.id).set(productDoc.data());
+        deleteCartProduct(productDoc.id ,user!.uid);
+
+      });
+    });
+
+    await ordersProductDoc.set({
+      'totalPrice': total,
+    });
+
+
+
+  }
+
+  List<double> calculTotal(AsyncSnapshot<dynamic> productsSnapshot)  {
+    double price = 0;
+    double fizz = 0;
+    productsSnapshot.data!.docs.forEach((doc) {
+      Map<String, dynamic> productJson = doc.data();
+      CartProduct cartProduct = CartProduct.fromMap(productJson);
+      if (cartProduct.variant == null) {
+        price += cartProduct.product!.price! * cartProduct.quantity;
+      } else {
+        price += cartProduct.variant!.price * cartProduct.quantity;
+      }
+      if(cartProduct.product!.category == 'glove'){
+        fizz += 1.50 * cartProduct.quantity;
+      }
+      else if(cartProduct.product!.category == 'sweater'){
+        fizz += 3 * cartProduct.quantity;
+      }
+      else if(cartProduct.product!.category == 'hat'){
+        fizz += 2 * cartProduct.quantity;
+      }
+    });
+    double total = price + fizz;
+    return [total, price, fizz];
+  }
+
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getCartProductsSnapshots() {
     final user = FirebaseAuth.instance.currentUser;

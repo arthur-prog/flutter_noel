@@ -99,7 +99,7 @@ class ProductLineWidget extends StatelessWidget {
           Flexible(
             flex: 1,
             child: IconButton(
-              onPressed: onDecrementQuantity,
+              onPressed: onIncrementQuantity,
               icon: const Icon(
                 Icons.add,
               ),
