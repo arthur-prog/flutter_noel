@@ -83,13 +83,13 @@
   "emailAlreadyInUseException": "L'adresse e-mail est déjà utilisée par un autre compte.",
   "signUpTitle": "Créer un compte",
   "signUpSubTitle": "Créer un compte pour profiter de toutes les fonctionnalités",
-  "editProfile" : "Modifier le profil"
+  "editProfile" : "Modifier le profil",
   "addToCart": "Ajouter au panier",
   "productsList": "Liste des produits",
   "filteredBy": "Filtrer par :",
   "all": "Tous",
-  "hat": "Chapeau",
   "gloves": "Gants",
-  "sweater": "Sweat",
-  "search": "Rechercher..."
+  "search": "Rechercher...",
+  "products": "Produits",
+  "cart": "Panier"
 }

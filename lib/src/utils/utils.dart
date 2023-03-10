@@ -61,7 +61,7 @@ Future buildShowModalBottomSheet(){
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       context: Get.context!,
       builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: 350,
         padding: const EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

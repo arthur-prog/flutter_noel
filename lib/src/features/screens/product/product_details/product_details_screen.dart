@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
+import 'package:flutter_noel/src/constants/colors.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
@@ -32,24 +33,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         elevation: 0,
         leading: IconButton(
           onPressed: () {_controller.back();},
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: isDark ? lightColor : darkColor,
           ),
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.shopping_cart,
-              color: Colors.black,
+              color: isDark ? lightColor : darkColor,
             ),
           ),
         ],
@@ -90,7 +91,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Container(
                   padding: const EdgeInsets.only(top: 40, right: 14, left: 14),
                   decoration: const BoxDecoration(
-                    color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
@@ -166,8 +166,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       ),
       bottomNavigationBar: Container(
         height: 70,
-        color: Colors.white,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -175,24 +174,22 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               width: 50,
               height: 50,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.white70),
-              ),
               child: const Icon(
                 Icons.favorite_border,
                 size: 30,
                 color: Colors.grey,
               ),
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             Expanded(
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {},
-                    child: Text(AppLocalizations.of(context)!.addToCart,
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white))
+                    child: Text(
+                        AppLocalizations.of(context)!.addToCart,
+                        style: Theme.of(context).textTheme.headlineSmall?.apply(color: isDark ? darkColor : lightColor),
+                    )
                 ),
               )
               ),
