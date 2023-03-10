@@ -16,7 +16,7 @@ class CartProduct {
         id: map['id'] ?? "",
         product: map['product'] != null ? Product.fromMap(map['product']) : null,
         variant: map['variant'] != null ? Variant.fromMap(map['variant']) : null,
-        quantity: map['quantity'] ?? "");
+        quantity: map['quantity']);
   }
 
   Map<String, dynamic> toMap() {

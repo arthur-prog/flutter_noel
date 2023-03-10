@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_noel/src/features/screens/product/admin/product_list/product_list_screen.dart';
 import 'package:flutter_noel/src/features/screens/product/products_list/products_list_screen.dart';
-import 'package:flutter_noel/src/features/screens/user/favorite_user.dart';
-import 'package:flutter_noel/src/features/screens/user/login/login_screen.dart';
-import 'package:flutter_noel/src/features/screens/user/product_user.dart';
+import 'package:flutter_noel/src/features/screens/user/cart/product_user.dart';
 import 'package:flutter_noel/src/features/screens/user/profile/profile_screen.dart';
-import 'package:flutter_noel/src/features/screens/user/user_login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
