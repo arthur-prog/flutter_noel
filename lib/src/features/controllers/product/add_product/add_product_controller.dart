@@ -30,7 +30,7 @@ class AddProductController extends GetxController {
   Rx<bool> isSameImageSelected = false.obs;
 
   Rx<File?> image = Rx<File?>(null);
-  RxList<File?> variantImages = RxList<File?>([]);
+  RxMap<String, File?> variantImages = RxMap<String, File?>({});
 
   RxList<Variant> variants = RxList<Variant>([]);
 
@@ -45,7 +45,7 @@ class AddProductController extends GetxController {
       size: isSizeSelected.value,
       sameImage: isSameImageSelected.value,
       variant: variants[index],
-      image: variantImages[index],
+      image: variantImages[variants[index].id],
     ));
     if (result != null){
       variants[index]= result["variant"];
@@ -86,7 +86,7 @@ class AddProductController extends GetxController {
           if(variantList[i].urlPicture != ""){
             final imageUrl = await getImageUrl(variantList[i].urlPicture!);
             File file = await urlToFile(imageUrl);
-            variantImages.add(file);
+            variantImages.addEntries([MapEntry(variantList[i].id, file)]);
           }
         }
       } else {
@@ -108,7 +108,7 @@ class AddProductController extends GetxController {
     ));
     if (result != null){
       variants.add(result["variant"]);
-      variantImages.add(result["image"]);
+      variantImages.addEntries([MapEntry(result["variant"].id, result["image"])]);
     }
   }
 

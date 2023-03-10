@@ -23,6 +23,7 @@ class VariantFormWidget extends StatelessWidget {
         color: Colors.white.withOpacity(0.2),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Obx(
             () => SizedBox(
@@ -63,7 +64,8 @@ class VariantFormWidget extends StatelessWidget {
               ),
             ),
           ),
-          if (_controller.variants.isNotEmpty) const Divider(),
+          if (_controller.variants.isNotEmpty)
+            const Divider(),
           const SizedBox(height: 10.0),
           Obx(
             () => SizedBox(
@@ -78,43 +80,61 @@ class VariantFormWidget extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Obx(
-                                () => _controller.variantImages.isNotEmpty
-                                    ? !_controller.isSameImageSelected.value
-                                    ? _controller.variantImages.length > index
-                                    ? Image.file(
-                                      _controller.variantImages[index]!,
-                                      width: 50.0,
-                                      height: 50.0,
-                                    ) : const NoImageWidget(height: 50, width: 50)
-                                    : const SizedBox(height: 50, width: 50)
-                                    : const SizedBox(height: 50, width: 50),
+                            Flexible(
+                              flex: 1,
+                              child: Obx(
+                                  () => _controller.variantImages.isNotEmpty
+                                      ? !_controller.isSameImageSelected.value
+                                      ? _controller.variantImages.length > index && _controller.variantImages[_controller.variants[index].id] != null
+                                      ? Image.file(
+                                        _controller.variantImages[_controller.variants[index].id]!,
+                                        width: 50.0,
+                                        height: 50.0,
+                                      ) : const NoImageWidget(height: 50, width: 50)
+                                      : const SizedBox(height: 50, width: 50)
+                                      : const SizedBox(height: 50, width: 50),
+                              ),
                             ),
                             if (_controller.isSizeSelected.value)
-                              Text(
-                                '${variant.size}',
-                                style: Theme.of(context).textTheme.headline3,
+                              Flexible(
+                                flex: 1,
+                                child: Text(
+                                  '${variant.size}',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
                               ),
                             if (_controller.isColorSelected.value)
-                              Text(
-                                '${variant.color}',
-                                style: Theme.of(context).textTheme.headline3,
+                              Flexible(
+                                flex: 1,
+                                child: Text(
+                                  '${variant.color}',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
                               ),
-                            Text(
-                              '${variant.price}€',
-                              style: Theme.of(context).textTheme.headline3,
-                            ),
-                            IconButton(
-                              onPressed: () => _controller.modifyVariant(index),
-                              icon: const Icon(
-                                Icons.edit,
+                            Flexible(
+                              flex: 1,
+                              child: Text(
+                                '${variant.price}€',
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
-                            IconButton(
-                              onPressed: () => _controller.removeVariant(index),
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.red,
+                            Flexible(
+                              flex: 1,
+                              child: IconButton(
+                                onPressed: () => _controller.modifyVariant(index),
+                                icon: const Icon(
+                                  Icons.edit,
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              flex: 1,
+                              child: IconButton(
+                                onPressed: () => _controller.removeVariant(index),
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
                               ),
                             ),
                           ],
@@ -126,13 +146,11 @@ class VariantFormWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10.0),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () => _controller.addVariant(),
-              child: Text(
-                AppLocalizations.of(context)!.addVariant,
-              ),
+          IconButton(
+            onPressed: () => _controller.addVariant(),
+            icon: const Icon(
+              Icons.add,
+              size: 30.0,
             ),
           ),
         ],

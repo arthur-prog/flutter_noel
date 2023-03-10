@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_noel/src/common_widgets/snackbar/snackbar_information_widget.dart';
 import 'package:flutter_noel/src/features/models/User.dart';
 import 'package:flutter_noel/src/features/screens/home/home_screen.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
