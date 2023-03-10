@@ -30,6 +30,8 @@ class ProductDetailsController extends GetxController {
 
   Rx<String> image = ''.obs;
   Rx<String> price = ''.obs;
+  Variant? variantObs = null;
+
 
   void back() {
     Get.back();
@@ -37,6 +39,9 @@ class ProductDetailsController extends GetxController {
 
 
   void addProductToCart(Product product) async {
+    print(image);
+    print(price);
+    print(variantObs);
     var uuid = const Uuid();
     CartProduct cartProduct = CartProduct(product: product, quantity: 1, id : uuid.v4());
     await _cartRepository.addProductToCart(cartProduct, product);
@@ -44,7 +49,7 @@ class ProductDetailsController extends GetxController {
 
   void addProductToFavorite(Product product) async {
     var uuid = const Uuid();
-    FavoriteProduct favoriteProduct = FavoriteProduct(product: product, id : uuid.v4(), variant: null);
+    FavoriteProduct favoriteProduct = FavoriteProduct(product: product, id : uuid.v4(), variant: variantObs);
     await _favoriteRepository.addProductToFavorite(favoriteProduct, product);
   }
 
@@ -52,6 +57,7 @@ class ProductDetailsController extends GetxController {
   void displayVariant(Variant variant) async{
     image.value = variant.urlPicture!;
     price.value = variant.price.toString();
+    variantObs = variant;
   }
 
   ListView buildVariants(

@@ -24,7 +24,7 @@ class FavoriteProduct {
         return {'product': product!.toMap(), 'id': id};
       }
       else{
-        return {'product': product!.toMap(), 'id': id, 'variant' : product!.toMap()};
+        return {'product': product!.toMap(), 'id': id, 'variant' : variant!.toMap()};
       }
     }
     else{
