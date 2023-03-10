@@ -3,6 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_noel/src/features/screens/home/home_screen.dart';
 import 'package:flutter_noel/src/features/screens/product/admin/add_product/add_product_screen.dart';
 import 'package:flutter_noel/src/features/screens/product/products_list/products_list_screen.dart';
+import 'package:flutter_noel/src/features/screens/user/favorite_user.dart';
+import 'package:flutter_noel/src/features/screens/user/product_user.dart';
 import 'package:flutter_noel/src/features/screens/user/user_adress_modify_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/user_login_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/user_registration_screen.dart';
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const HomeScreen(),
+      home: ProductUserScreen(),
     );
   }
 }

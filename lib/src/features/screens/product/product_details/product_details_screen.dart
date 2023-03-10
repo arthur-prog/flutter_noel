@@ -171,10 +171,13 @@ class ProductDetailsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.white70),
               ),
-              child: const Icon(
-                Icons.favorite_border,
-                size: 30,
-                color: Colors.grey,
+              child: IconButton(
+                onPressed:() => _controller.addProductToFavorite(product),
+                icon : const Icon(
+                  Icons.favorite_border,
+                  size: 30,
+                  color: Colors.grey,
+                ),
               ),
             ),
             SizedBox(width: 20),
@@ -182,7 +185,7 @@ class ProductDetailsScreen extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => _controller.addProductToCart(product),
                     child: Text('Ajouter au panier',
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white))
                 ),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_noel/src/features/models/Cart.dart';
+import 'package:flutter_noel/src/features/models/Favorite.dart';
 import 'package:flutter_noel/src/features/models/User.dart';
+import 'package:flutter_noel/src/repository/favorite_repository/favorite_repository.dart';
 import 'package:flutter_noel/src/repository/user_repository/user_repository.dart';
+import 'package:flutter_noel/src/repository/cart_repository/cart_repository.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -8,6 +12,8 @@ class RegistrationUserController extends GetxController {
   static RegistrationUserController get instance => Get.find();
 
   final _userRepository = Get.put(UserRepository());
+  final _cartRepository = Get.put(CartRepository());
+  final _favoriteRepository = Get.put(FavoriteRepository());
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
@@ -119,7 +125,7 @@ class RegistrationUserController extends GetxController {
 
   String? validateStreet(String value) {
     if (value.isEmpty) {
-      return AppLocalizations.of(Get.context!)!.streetIsRequired;
+      return 'dsqd';
     }
     return null;
   }
@@ -129,14 +135,27 @@ class RegistrationUserController extends GetxController {
       int houseNumber = int.parse(houseNumberController.text);
       int codePostal = int.parse(CPController.text);
 
-      UserInfoAdress user = UserInfoAdress(
+      UserData user = UserData(
         id: '',
+        email: emailController.text,
+        name : nameController.text,
+        surname : surnameController.text,
         housenumber: houseNumber,
         street: streetController.text,
         city: cityController.text,
         codepostal: codePostal,
       );
       await _userRepository.addUser(user, emailController.text, passwordController.text, nameController.text, surnameController.text);
+
+      Cart cart = Cart(
+        id: '',
+      );
+
+      await _cartRepository.addUser(emailController.text, cart);
+
+      Favorite favorite = Favorite(id: '');
+
+      await _favoriteRepository.addUser(emailController.text, favorite);
     }
   }
 }
