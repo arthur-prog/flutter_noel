@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/constants/colors.dart';
+import 'package:flutter_noel/src/features/models/Favorite.dart';
 import 'package:flutter_noel/src/features/models/User.dart';
 import 'package:flutter_noel/src/features/screens/product/admin/product_list/product_list_screen.dart';
+import 'package:flutter_noel/src/features/screens/user/favorite/favorite_user.dart';
 import 'package:flutter_noel/src/features/screens/user/profile/widgets/UserInfosWidget.dart';
 import 'package:flutter_noel/src/features/screens/user/profile/widgets/ProfileMenuWidget.dart';
-import 'package:flutter_noel/src/features/screens/user/edit_profile_screen.dart';
+import 'package:flutter_noel/src/features/screens/user/edit_profile/edit_profile_screen.dart';
 import 'package:flutter_noel/src/repository/user_repository/user_repository.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -91,8 +93,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               ProfileMenuWidget(
                 title: AppLocalizations.of(context)!.orders,
-                icon: Icons.bookmark_border,
+                icon: Icons.shopping_bag_outlined,
                 onPress: () {},
+              ),
+              ProfileMenuWidget(
+                title: AppLocalizations.of(context)!.orders,
+                icon: Icons.favorite_border,
+                onPress: () {
+                  Get.to(() => FavoriteUserScreen());
+                },
               ),
               ProfileMenuWidget(
                 title: AppLocalizations.of(context)!.themeMode,

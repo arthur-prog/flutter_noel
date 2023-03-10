@@ -57,12 +57,13 @@ class CardProductWidget extends StatelessWidget {
                       .textTheme
                       .bodyText1,
                 ),
-                Text(
-                  "${product.price} €",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1,
-                ),
+                if(product.price != null)
+                  Text(
+                    "${product.price} €",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1,
+                  ),
               ],
             ),
           ),

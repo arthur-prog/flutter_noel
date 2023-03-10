@@ -1,6 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_noel/src/features/models/Cart.dart';
 import 'package:flutter_noel/src/features/models/CartProduct.dart';
 import 'package:flutter_noel/src/features/models/FavoriteProduct.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
@@ -9,28 +6,22 @@ import 'package:flutter_noel/src/repository/favorite_repository/favorite_reposit
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
 import 'package:flutter_noel/src/features/models/Variant.dart';
-import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 
 class ProductDetailsController extends GetxController {
   static ProductDetailsController get instance => Get.find();
-
-  final _productRepository = Get.put(ProductRepository());
 
   final _cartRepository = Get.put(CartRepository());
   final _favoriteRepository = Get.put(FavoriteRepository());
 
   Rx<String> image = ''.obs;
   Rx<String> price = ''.obs;
-  Variant? variantObs = null;
+  Variant? variantObs;
 
 
   void back() {
@@ -39,9 +30,6 @@ class ProductDetailsController extends GetxController {
 
 
   void addProductToCart(Product product) async {
-    print(image);
-    print(price);
-    print(variantObs);
     var uuid = const Uuid();
     CartProduct cartProduct = CartProduct(product: product, quantity: 1, id : uuid.v4(), variant: variantObs);
     await _cartRepository.addProductToCart(cartProduct, product);
@@ -66,7 +54,10 @@ class ProductDetailsController extends GetxController {
   {
     List<Widget> children = [];
 
-    variants.forEach((variant) {
+    variants.asMap().forEach((index, variant) {
+      if(index == 0){
+        variantObs = variant;
+      }
       children.add(
           Padding(
             padding: const EdgeInsets.all(8.0),
