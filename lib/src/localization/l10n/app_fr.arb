@@ -102,5 +102,7 @@
   "admin" : "Admin",
   "addedToCart": "Produit ajouté au panier",
   "addedToFavorite": "Produit ajouté aux favoris",
-  "next" : "Suivant"
+  "next" : "Suivant",
+  "favorites" : "Favoris",
+  "noProducts" : "Aucun produits"
 }

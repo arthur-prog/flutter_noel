@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
-import 'package:flutter_noel/src/features/models/CartProduct.dart';
+import 'package:flutter_noel/src/features/models/FavoriteProduct.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
 
-class ProductLineWidget extends StatelessWidget {
-  const ProductLineWidget({
+class ProductLineFavoriteWidget extends StatelessWidget {
+  const ProductLineFavoriteWidget({
     super.key,
-    required this.cartProduct,
-    this.onIncrementQuantity,
-    this.onDecrementQuantity,
+    required this.favoriteProduct,
+    this.removeProduct,
   });
-  final CartProduct cartProduct;
-  final VoidCallback? onIncrementQuantity;
-  final VoidCallback? onDecrementQuantity;
+  final FavoriteProduct favoriteProduct;
+  final VoidCallback? removeProduct;
 
   @override
   Widget build(BuildContext context) {
-    final Product? product = cartProduct.product;
+    final Product? product = favoriteProduct.product;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10.0),
       decoration: BoxDecoration(
@@ -30,7 +28,7 @@ class ProductLineWidget extends StatelessWidget {
           Flexible(
             flex: 2,
             child: FutureBuilder(
-              future: cartProduct.variant == null ? getImageUrl(product!.urlPicture) : getImageUrl(cartProduct.variant!.urlPicture!),
+              future: favoriteProduct.variant == null ? getImageUrl(product!.urlPicture) : getImageUrl(favoriteProduct.variant!.urlPicture!),
                 builder: (context, AsyncSnapshot snapshot){
                   if(snapshot.connectionState == ConnectionState.done){
                     if(snapshot.hasData){
@@ -58,16 +56,16 @@ class ProductLineWidget extends StatelessWidget {
                   product!.name,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
-                cartProduct.variant != null ?
-                cartProduct.variant!.size != null ?
+                favoriteProduct.variant != null ?
+                favoriteProduct.variant!.size != null ?
                 Text(
-                  cartProduct.variant!.size!,
+                  favoriteProduct.variant!.size!,
                   style: Theme.of(context).textTheme.bodyText1,
                 ) : const SizedBox() : const SizedBox(),
-                cartProduct.variant != null ?
-                cartProduct.variant!.color != null ?
+                favoriteProduct.variant != null ?
+                favoriteProduct.variant!.color != null ?
                 Text(
-                  cartProduct.variant!.color!,
+                  favoriteProduct.variant!.color!,
                   style: Theme.of(context).textTheme.bodyText1,
                 ) : const SizedBox() : const SizedBox(),
               ],
@@ -76,34 +74,16 @@ class ProductLineWidget extends StatelessWidget {
           Flexible(
             flex: 2,
             child: Text(
-              cartProduct.variant == null ? '${product.price}€' : '${cartProduct.variant!.price}€',
+              favoriteProduct.variant == null ? '${product.price}€' : '${favoriteProduct.variant!.price}€',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           Flexible(
-            flex: 1,
+            flex: 2,
             child: IconButton(
-              onPressed: onDecrementQuantity,
-              icon: const Icon(
-                Icons.remove,
-              ),
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: Text(
-              cartProduct.quantity.toString(),
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: IconButton(
-              onPressed: onIncrementQuantity,
-              icon: const Icon(
-                Icons.add,
-              ),
-            ),
+              icon: Icon(Icons.delete,color: Colors.red.withOpacity(0.9),),
+              onPressed: removeProduct,
+            )
           ),
         ],
       ),
