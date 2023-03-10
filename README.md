@@ -8,7 +8,7 @@ https://trello.com/b/nen4AQ0T/projet-flutter
 
 ## Couples Login/Mot de passe de client :
 
-- login : / mot de passe : 
+- login : admin@admin.fr / mot de passe : admin123
 - login : / mot de passe :     
 
 ## URL des points d'API

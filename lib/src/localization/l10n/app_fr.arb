@@ -104,6 +104,7 @@
   "addedToFavorite": "Produit ajouté aux favoris",
   "next" : "Suivant",
   "favorites" : "Favoris",
-  "noProducts" : "Aucun produits"
-  "pay" : "Payer"
+  "noProducts" : "Aucun produits",
+  "pay" : "Payer",
+  "noOrders" : "Aucune commande"
 }
