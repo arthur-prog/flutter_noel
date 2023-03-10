@@ -174,10 +174,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               width: 50,
               height: 50,
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.favorite_border,
-                size: 30,
-                color: Colors.grey,
+              child: IconButton(
+                onPressed:() => _controller.addProductToFavorite(product),
+                icon : const Icon(
+                  Icons.favorite_border,
+                  size: 30,
+                  color: Colors.grey,
+                ),
               ),
             ),
             const SizedBox(width: 20),
@@ -185,7 +188,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => _controller.addProductToCart(product),
                     child: Text(
                         AppLocalizations.of(context)!.addToCart,
                         style: Theme.of(context).textTheme.headlineSmall?.apply(color: isDark ? darkColor : lightColor),

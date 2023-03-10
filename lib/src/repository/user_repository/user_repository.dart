@@ -12,10 +12,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
 
-  final usersCollection = FirebaseFirestore.instance.collection('usersAdress');
+  final usersCollection = FirebaseFirestore.instance.collection('users');
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<void> addUser(UserInfoAdress user, String email, String password, String name, String surname) async {
+  Future<void> addUser(UserData user, String email, String password, String name, String surname) async {
     try {
      UserCredential userCredential =  await auth.createUserWithEmailAndPassword(
         email: email,
