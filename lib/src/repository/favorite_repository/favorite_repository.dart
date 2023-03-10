@@ -9,6 +9,7 @@ import 'package:flutter_noel/src/features/models/Favorite.dart';
 import 'package:flutter_noel/src/features/models/FavoriteProduct.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
 import 'package:flutter_noel/src/features/models/User.dart';
+import 'package:flutter_noel/src/features/models/Variant.dart';
 import 'package:flutter_noel/src/features/screens/home/home_screen.dart';
 import 'package:get/get.dart';
 
@@ -40,8 +41,14 @@ class FavoriteRepository extends GetxController {
     final user = FirebaseAuth.instance.currentUser;
     final cartDoc = FirebaseFirestore.instance.doc('favorite/${user?.uid}');
     final cartProductsCollection = cartDoc.collection('favoriteProducts');
+    final cartProductsDoc;
 
-    final cartProductsDoc = cartProductsCollection.doc(product.id);
+    if (favoriteProduct.variant != null){
+      cartProductsDoc = cartProductsCollection.doc(favoriteProduct.variant?.id);
+    }
+    else{
+      cartProductsDoc = cartProductsCollection.doc(product.id);
+    }
     final cartProductsSnapshot = await cartProductsDoc.get();
 
     if (cartProductsSnapshot.exists) {
@@ -60,9 +67,14 @@ class FavoriteRepository extends GetxController {
     final user = FirebaseAuth.instance.currentUser;
     final favoriteDoc = FirebaseFirestore.instance.doc('favorite/${user?.uid}');
     final favoriteProductsCollection = favoriteDoc.collection('favoriteProducts');
-
-
-    final favoriteProductDoc = favoriteProductsCollection.doc(favoriteProduct.product?.id);
+    final favoriteProductDoc;
+   if(favoriteProduct.variant != null){
+     favoriteProductDoc = favoriteProductsCollection.doc(favoriteProduct.variant?.id);
+   }
+   else{
+     favoriteProductDoc = favoriteProductsCollection.doc(favoriteProduct.product?.id);
+   }
+    print(favoriteProductDoc);
     await favoriteProductDoc.delete();
   }
 
