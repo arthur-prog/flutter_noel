@@ -426,5 +426,9 @@
   "pay": "Pay",
   "@pay": {
       "description": "Payement"
+  },
+  "noOrders" : "No orders",
+  "@noOrders" : {
+    "description": "The no orders"
   }
 }

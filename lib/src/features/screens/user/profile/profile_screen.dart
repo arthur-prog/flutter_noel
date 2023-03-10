@@ -5,6 +5,7 @@ import 'package:flutter_noel/src/features/models/Favorite.dart';
 import 'package:flutter_noel/src/features/models/User.dart';
 import 'package:flutter_noel/src/features/screens/product/admin/product_list/product_list_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/favorite/favorite_user.dart';
+import 'package:flutter_noel/src/features/screens/user/orders/orders_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/profile/widgets/UserInfosWidget.dart';
 import 'package:flutter_noel/src/features/screens/user/profile/widgets/ProfileMenuWidget.dart';
 import 'package:flutter_noel/src/features/screens/user/edit_profile/edit_profile_screen.dart';
@@ -94,7 +95,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ProfileMenuWidget(
                 title: AppLocalizations.of(context)!.orders,
                 icon: Icons.shopping_bag_outlined,
-                onPress: () {},
+                onPress: () {
+                  Get.to(() => OrdersScreen());
+                },
               ),
               ProfileMenuWidget(
                 title: AppLocalizations.of(context)!.favorites,

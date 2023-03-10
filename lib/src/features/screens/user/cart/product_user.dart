@@ -51,7 +51,7 @@ class ProductUserScreen extends StatelessWidget {
                       List<Widget> children = [];
                   if (productsSnapshot.hasData) {
                     if (productsSnapshot.data!.docs.isEmpty) {
-                      return const Text("no product");
+                      return Text(AppLocalizations.of(context)!.noProducts);
                     } else {
                       productsSnapshot.data!.docs.forEach((doc) {
                         Map<String, dynamic> productJson = doc.data();
