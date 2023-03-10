@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/constants/colors.dart';
-import 'package:flutter_noel/src/features/screens/user/profile/widgets/profile_menu.dart';
-import 'package:flutter_noel/src/features/screens/user/user_adress_modify_screen.dart';
+import 'package:flutter_noel/src/features/models/User.dart';
+import 'package:flutter_noel/src/features/screens/product/admin/product_list/product_list_screen.dart';
+import 'package:flutter_noel/src/features/screens/user/profile/widgets/UserInfosWidget.dart';
+import 'package:flutter_noel/src/features/screens/user/profile/widgets/ProfileMenuWidget.dart';
+import 'package:flutter_noel/src/features/screens/user/edit_profile_screen.dart';
 import 'package:flutter_noel/src/repository/user_repository/user_repository.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,21 +53,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //TODO: user infos
+              FutureBuilder(
+                future: _userRepo.getUserById(user!.uid),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if(snapshot.hasData) {
+                      UserData userData = snapshot.data;
+                      return UserInfoWidget(userData: userData);
+                    }
+                    else {
+                      return Text("No data");
+                    }
+                  }
+                  return const CircularProgressIndicator();
+                }
+              ),
               const SizedBox(
                 height: 20,
-              ),
-              Text(
-                user!.email!,
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              const SizedBox(
-                height: 30,
               ),
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
-                  onPressed: () => Get.to(() => ModifyUserAdressScreen()),
+                  onPressed: () => Get.to(() => EditProfileScreen()),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       side: BorderSide.none,
@@ -85,9 +95,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPress: () {},
               ),
               ProfileMenuWidget(
-                title: AppLocalizations.of(context)!.settings,
-                icon: Icons.settings,
-                onPress: () {},
+                title: AppLocalizations.of(context)!.themeMode,
+                icon: isDark ? Icons.wb_sunny_outlined : Icons.nightlight_outlined,
+                onPress: () {
+                  Get.changeThemeMode(isDark ? ThemeMode.light : ThemeMode.dark);
+                },
+              ),
+              FutureBuilder(
+                  future: _userRepo.getUserById(user.uid),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if(snapshot.hasData) {
+                      UserData userData = snapshot.data;
+                      if(userData.isAdmin){
+                        return ProfileMenuWidget(
+                          title: AppLocalizations.of(context)!.admin,
+                          icon: Icons.settings,
+                          onPress: () {
+                            Get.to(() => ProductListScreen());
+                          },
+                        );
+                      }
+                    }
+                    return const SizedBox();
+                  }
               ),
             ]
           ),

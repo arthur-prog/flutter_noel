@@ -3,14 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_noel/src/common_widgets/snackbar/snackbar_information_widget.dart';
 import 'package:flutter_noel/src/features/screens/home/home_screen.dart';
 import 'package:flutter_noel/src/features/screens/product/products_list/products_list_screen.dart';
-import 'package:flutter_noel/src/features/screens/user/profile/profile_screen.dart';
 import 'package:flutter_noel/src/repository/authentication_repository/exceptions/signin_credentials_failure.dart';
+import 'package:flutter_noel/src/repository/authentication_repository/exceptions/signin_email_password_failure.dart';
+import 'package:flutter_noel/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
+import 'package:flutter_noel/src/repository/user_repository/user_repository.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_noel/src/features/models/User.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
+
+  final _userRepo = Get.put(UserRepository());
 
   final _auth = FirebaseAuth.instance;
   late Rx<User?> firebaseUser;
@@ -23,23 +28,33 @@ class AuthenticationRepository extends GetxController {
   }
 
   _setInitialScreen(User? user) {
-    user == null ? Get.offAll(() => ProductsListScreen(isConnected: false)) : Get.offAll(() => const HomeScreen());
+    user == null
+        ? Get.offAll(() => ProductsListScreen(isConnected: false))
+        : Get.offAll(() => const HomeScreen());
   }
 
   void signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser
-          ?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
-      print(firebaseUser.value);
-      firebaseUser.value == null ? Get.offAll(() => ProductsListScreen(isConnected: false)) : Get
-          .offAll(() => const HomeScreen());
-      //TODO: add user to firestore
+      UserData user = UserData(
+        id: firebaseUser.value!.uid,
+        email: firebaseUser.value!.email!,
+        isAdmin: false,
+      );
+      final checkUser = await _userRepo.getUserById(user.id);
+      if (checkUser == null) {
+        _userRepo.addUser(user);
+      }
+      firebaseUser.value == null
+          ? Get.offAll(() => ProductsListScreen(isConnected: false))
+          : Get.offAll(() => const HomeScreen());
     } on FirebaseAuthException catch (e) {
       final ex = SignInWithCredentialsFailure.code(e.code);
       SnackBarInformationWidget(
@@ -54,6 +69,56 @@ class AuthenticationRepository extends GetxController {
         type: "error",
       );
       print(e.toString());
+    }
+  }
+
+  void createUserWithEmailandPassword(
+      String password, UserData userdata) async {
+    try {
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+              email: userdata.email,
+              password: password
+          );
+      userdata.id = userCredential.user!.uid;
+      _userRepo.addUser(userdata);
+      firebaseUser.value == null
+          ? Get.offAll(() => ProductsListScreen(isConnected: false))
+          : Get.offAll(() => const HomeScreen());
+    } on FirebaseAuthException catch (e) {
+      final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
+      SnackBarInformationWidget(
+        text: ex.message,
+        title: AppLocalizations.of(Get.context!)!.error,
+        type: "error",
+      );
+    } catch (_) {
+      SnackBarInformationWidget(
+        text: AppLocalizations.of(Get.context!)!.somethingWentWrong,
+        title: AppLocalizations.of(Get.context!)!.error,
+        type: "error",
+      );
+    }
+  }
+
+  void signInWithEmailandPassword(String email, String password) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      firebaseUser.value == null
+          ? Get.offAll(() => ProductsListScreen(isConnected: false))
+          : Get.offAll(() => const HomeScreen());
+    } on FirebaseAuthException catch (e) {
+      final ex = SignInWithEmailAndPasswordFailure.code(e.code);
+      SnackBarInformationWidget(
+        text: ex.message,
+        title: AppLocalizations.of(Get.context!)!.error,
+        type: "error",
+      );
+    } catch (_) {
+      SnackBarInformationWidget(
+        text: AppLocalizations.of(Get.context!)!.somethingWentWrong,
+        title: AppLocalizations.of(Get.context!)!.error,
+        type: "error",
+      );
     }
   }
 

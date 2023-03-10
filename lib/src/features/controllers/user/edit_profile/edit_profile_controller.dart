@@ -2,38 +2,56 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/features/models/User.dart';
+import 'package:flutter_noel/src/features/screens/home/home_screen.dart';
 import 'package:flutter_noel/src/repository/user_repository/user_repository.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ModifyUserAdressController extends GetxController {
-  static ModifyUserAdressController get instance => Get.find();
+class EditProdileController extends GetxController {
+  static EditProdileController get instance => Get.find();
 
   final _userRepository = Get.put(UserRepository());
 
 
   User? user = FirebaseAuth.instance.currentUser;
 
+  late UserData userData;
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    // Récupérer les informations de l'utilisateur depuis Firestore
-    FirebaseFirestore.instance
-        .collection('usersAdress')
-        .doc(user?.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        // Utiliser les données récupérées pour initialiser les champs de texte
-        final Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-        cityController.text = data['city'] ?? '';
-        CPController.text = data['codepostal'].toString() ?? '';
-        houseNumberController.text = data['housenumber'].toString() ?? '';
-        streetController.text = data['street'] ?? '';
+    try {
+      final thisUser = await _userRepository.getUserById(user!.uid);
+      if(thisUser != null){
+        userData = thisUser;
+
+        if (userData.city != null) {
+          if (userData.city != null) {
+            cityController.text = userData.city!;
+          }
+          if (userData.codepostal != null) {
+            CPController.text = userData.codepostal!.toString();
+          }
+          if (userData.housenumber != null) {
+            houseNumberController.text = userData.housenumber!.toString();
+          }
+          if (userData.street != null) {
+            streetController.text = userData.street!;
+          }
+          if (userData.name != null) {
+            lastNameController.text = userData.name!;
+          }
+          if (userData.surname != null) {
+            firstNameController.text = userData.surname!;
+          }
+        }
+      } else {
+        print("No user found");
+        Get.back();
       }
-    }).catchError((error) {
-      print('Erreur lors de la récupération des données: $error');
-    });
+    } catch (e) {
+      print(e);
+    }
   }
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -41,6 +59,8 @@ class ModifyUserAdressController extends GetxController {
   final TextEditingController CPController = TextEditingController();
   final TextEditingController houseNumberController = TextEditingController();
   final TextEditingController streetController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
 
   final regexPostCode = RegExp(r'^[0-9-]+$');
   final regexHouseNumber = RegExp(r'\d');
@@ -96,18 +116,35 @@ class ModifyUserAdressController extends GetxController {
     return null;
   }
 
-  void modifyUserAdress() async {
+  String? validateFirstName(String value) {
+    if (value.isEmpty) {
+      return AppLocalizations.of(Get.context!)!.firstNameIsRequired;
+    }
+    return null;
+  }
+
+  String? validateLastName(String value) {
+    if (value.isEmpty) {
+      return AppLocalizations.of(Get.context!)!.lastNameIsRequired;
+    }
+    return null;
+  }
+
+  void updateProfile() async {
     if (formKey.currentState!.validate()) {
       int houseNumber = int.parse(houseNumberController.text);
       int codePostal = int.parse(CPController.text);
 
-      Map<String, dynamic> data = {
-        'housenumber': houseNumber,
-        'street': streetController.text,
-        'city': cityController.text,
-        'codepostal': codePostal,
-      };
-      await _userRepository.modifyUserAdress(user, data);
+      userData.city = cityController.text;
+      userData.codepostal = codePostal;
+      userData.housenumber = houseNumber;
+      userData.street = streetController.text;
+      userData.name = lastNameController.text;
+      userData.surname = firstNameController.text;
+
+      await _userRepository.updateUser(userData);
+
+      Get.to(() => HomeScreen());
     }
   }
 }

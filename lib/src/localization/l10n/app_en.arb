@@ -370,5 +370,37 @@
   "cart": "Cart",
   "@cart": {
       "description": "The cart"
+  },
+  "themeMode": "Theme Mode",
+  "@themeMode": {
+      "description": "The theme mode"
+  },
+  "createdAccount" : "Your account has been created successfully.",
+  "@createdAccount" : {
+    "description" : "The created account"
+  },
+  "updatedAccount" : "Your informations has been modified successfully.",
+  "@updatedAccount" : {
+    "description": "The updated account"
+  },
+  "firstName": "First Name",
+  "@firstName": {
+      "description": "The first name"
+  },
+  "lastName": "Last Name",
+  "@lastName": {
+      "description": "The last name"
+  },
+  "firstNameIsRequired" : "First name is required.",
+  "@firstNameIsRequired" : {
+      "description" : "The first name is required"
+  },
+  "lastNameIsRequired" : "Last name is required.",
+  "@lastNameIsRequired" : {
+      "description" : "The last name is required"
+  },
+  "admin": "Admin",
+  "@admin": {
+      "description": "The admin"
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/features/screens/product/products_list/products_list_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/favorite_user.dart';
 import 'package:flutter_noel/src/features/screens/user/product_user.dart';
-import 'package:flutter_noel/src/features/screens/user/user_adress_modify_screen.dart';
+import 'package:flutter_noel/src/features/screens/user/edit_profile_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/user_login_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/user_registration_screen.dart';
 import 'package:flutter_noel/src/features/screens/product/admin/product_list/product_list_screen.dart';

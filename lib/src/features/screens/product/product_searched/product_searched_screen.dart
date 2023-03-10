@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_noel/src/constants/colors.dart';
 import 'package:flutter_noel/src/features/controllers/product_searched/product_searched_controller.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:get/get.dart';
@@ -32,25 +33,25 @@ class _ProductSearchedScreenState extends State<ProductSearchedScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Theme.of(context).cardColor,
           title: Card(
             child: TextField(
               controller: _controller.productController,
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search)
+                prefixIcon: Icon(Icons.search),
               ),
             ),
           ),
-          backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
             onPressed: () {_controller.back();},
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: isDark ? lightColor : darkColor,
             ),
           ),
         ),
