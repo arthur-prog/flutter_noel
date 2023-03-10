@@ -108,7 +108,10 @@ class AddProductScreen extends StatelessWidget {
                     () => !_controller.isVariable.value || (_controller.isVariable.value && _controller.isSameImageSelected.value)
                         ? ElevatedButton(
                             onPressed: _controller.selectImage,
-                            child: Text(AppLocalizations.of(context)!.addPhoto)) : const SizedBox(),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: Text(AppLocalizations.of(context)!.addPhoto),
+                            )) : const SizedBox(),
                   ),
                   const SizedBox(
                     height: 20,

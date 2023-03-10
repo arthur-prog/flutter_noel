@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_noel/src/common_widgets/snackbar/snackbar_information_widget.dart';
 import 'package:flutter_noel/src/features/screens/home/home_screen.dart';
-import 'package:flutter_noel/src/features/screens/home/home_screen_not_logged_in.dart';
+import 'package:flutter_noel/src/features/screens/product/products_list/products_list_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/profile/profile_screen.dart';
 import 'package:flutter_noel/src/repository/authentication_repository/exceptions/signin_credentials_failure.dart';
 import 'package:get/get.dart';
@@ -23,7 +23,7 @@ class AuthenticationRepository extends GetxController {
   }
 
   _setInitialScreen(User? user) {
-    user == null ? Get.offAll(() => const HomeScreenNotLoggedIn()) : Get.offAll(() => const HomeScreen());
+    user == null ? Get.offAll(() => ProductsListScreen(isConnected: false)) : Get.offAll(() => const HomeScreen());
   }
 
   void signInWithGoogle() async {
@@ -37,8 +37,9 @@ class AuthenticationRepository extends GetxController {
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
       print(firebaseUser.value);
-      firebaseUser.value == null ? Get.offAll(() => const HomeScreenNotLoggedIn()) : Get
+      firebaseUser.value == null ? Get.offAll(() => ProductsListScreen(isConnected: false)) : Get
           .offAll(() => const HomeScreen());
+      //TODO: add user to firestore
     } on FirebaseAuthException catch (e) {
       final ex = SignInWithCredentialsFailure.code(e.code);
       SnackBarInformationWidget(

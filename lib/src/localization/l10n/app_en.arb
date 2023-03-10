@@ -337,7 +337,8 @@
   },
   "editProfile" : "Edit Profile",
   "@editProfile" : {
-    "description" : "The edit profile"
+    "description": "The edit profile"
+  },
   "addToCart": "Add to cart",
   "@addToCart": {
     "description": "The message that appears when you want to edit a variant"
@@ -354,20 +355,20 @@
   "@all": {
     "description": "The message that appears when you want to edit a variant"
   },
-  "hat": "Hat",
-  "@hat": {
-    "description": "The message that appears when you want to edit a variant"
-  },
   "gloves": "Gloves",
   "@gloves": {
-    "description": "The message that appears when you want to edit a variant"
-  },
-  "sweater": "Sweater",
-  "@sweater": {
     "description": "The message that appears when you want to edit a variant"
   },
   "search": "Search...",
   "@search": {
     "description": "The message that appears when you want to edit a variant"
+  },
+  "products": "Products",
+  "@products": {
+    "description": "The products"
+  },
+  "cart": "Cart",
+  "@cart": {
+      "description": "The cart"
   }
 }

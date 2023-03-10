@@ -2,6 +2,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_noel/src/constants/strings.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
 import 'package:flutter_noel/src/features/screens/product/product_searched/product_searched_screen.dart';
+import 'package:flutter_noel/src/features/screens/user/login/login_screen.dart';
+import 'package:flutter_noel/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:get/get.dart';
 import 'package:flutter_noel/src/features/screens/product/product_details/product_details_screen.dart';
@@ -12,6 +14,16 @@ class ProductsListController extends GetxController {
   static ProductsListController get instance => Get.find();
 
   Rx<String> category = ''.obs;
+
+  final authRepository = Get.put(AuthenticationRepository());
+
+  void login() {
+    Get.to(() => const LoginScreen());
+  }
+
+  void logout() {
+    authRepository.logOut();
+  }
 
   void displayFilteredProduct(String filter) async{
     category.value = filter;

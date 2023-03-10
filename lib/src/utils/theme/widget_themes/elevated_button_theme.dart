@@ -3,7 +3,7 @@ import 'package:flutter_noel/src/constants/colors.dart';
 
 class MyElevatedButtonTheme {
   static final lightElevatedButtonTheme = ElevatedButtonThemeData(
-    style: OutlinedButton.styleFrom(
+    style: ElevatedButton.styleFrom(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       foregroundColor: lightColor,
@@ -14,7 +14,7 @@ class MyElevatedButtonTheme {
   );
 
   static final darkElevatedButtonTheme = ElevatedButtonThemeData(
-    style: OutlinedButton.styleFrom(
+    style: ElevatedButton.styleFrom(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
