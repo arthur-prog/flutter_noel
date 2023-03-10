@@ -35,22 +35,22 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: (value) {
             currentIndex = value;
             _pageController.animateToPage(value,
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 curve: Curves.linear);
             setState(() {});
           },
           items: [
             BottomNavigationBarItem(
-              icon: const Icon(Icons.party_mode_outlined),
-              label: "Liste",
+              icon: const Icon(Icons.list),
+              label: AppLocalizations.of(context)!.products,
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.map_outlined),
-              label: "Profil",
+              icon: const Icon(Icons.shopping_cart),
+              label: AppLocalizations.of(context)!.cart,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.person_outline_outlined),
-              label: "Panier",
+              label: AppLocalizations.of(context)!.profile,
             ),
           ],
         ),
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           },
           children: <Widget> [
-            ProductsListScreen(),
+            ProductsListScreen(isConnected: true),
             ProductListScreen(),
             ProfileScreen(),
           ],

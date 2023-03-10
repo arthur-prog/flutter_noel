@@ -50,7 +50,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //TODO: Add user infos
+              //TODO: user infos
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                user!.email!,
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
