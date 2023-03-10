@@ -8,8 +8,9 @@ https://trello.com/b/nen4AQ0T/projet-flutter
 
 ## Couples Login/Mot de passe de client :
 
-- login : admin@admin.fr / mot de passe : admin123
-- login : / mot de passe :     
+- login : admin@admin.fr / mot de passe : admin123 (compte avec les droits administrateurs)
+- login : adrien.destremont@hotmail.com / mot de passe : adrien
+- login : michel.maurice@gmail.com / mot de passe : michel
 
 ## URL des points d'API
 REPOSITORY DU CODE : https://github.com/mattfritsch/api-points.git
