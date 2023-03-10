@@ -45,27 +45,23 @@ class CardProductWidget extends StatelessWidget {
             },
           ),
           const Divider(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
-              children: [
+          Column(
+            mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                product.name,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1,
+              ),
+              if(product.price != null)
                 Text(
-                  product.name,
+                  "${product.price} €",
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1,
                 ),
-                if(product.price != null)
-                  Text(
-                    "${product.price} €",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1,
-                  ),
-              ],
-            ),
+            ],
           ),
         ],
       ),

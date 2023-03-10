@@ -411,6 +411,17 @@
   "@addedToFavorite": {
       "description": "The added to favorite"
   },
+  "next": "Next",
+  "@next": {
+      "description": "The next"
+  },
+  "favorites": "Favorites",
+  "@favorites": {
+      "description": "The favorite"
+  },
+  "noProducts" : "No products",
+  "@noProducts" : {
+      "description" : "The no products"
   "pay": "Pay",
   "@pay": {
       "description": "Payement"
