@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
 import 'package:flutter_noel/src/constants/colors.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
+import 'package:flutter_noel/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:flutter_noel/src/features/controllers/product/product_details/product_details_controller.dart';
@@ -24,6 +25,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   final _productRepository = Get.put(ProductRepository());
 
+  final _authRepo = Get.put(AuthenticationRepository());
+
+
   @override
   void initState(){
     _controller.price.value = widget.product.price.toString();
@@ -33,6 +37,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = _authRepo.firebaseUser.value;
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
@@ -174,10 +179,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               width: 50,
               height: 50,
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.favorite_border,
-                size: 30,
-                color: Colors.grey,
+              child: IconButton(
+                onPressed:() => _controller.addProductToFavorite(widget.product),
+                icon : const Icon(
+                  Icons.favorite_border,
+                  size: 30,
+                  color: Colors.grey,
+                ),
               ),
             ),
             const SizedBox(width: 20),
@@ -185,7 +193,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => _controller.addProductToCart(widget.product),
                     child: Text(
                         AppLocalizations.of(context)!.addToCart,
                         style: Theme.of(context).textTheme.headlineSmall?.apply(color: isDark ? darkColor : lightColor),
