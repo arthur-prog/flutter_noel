@@ -4,6 +4,7 @@ import 'package:flutter_noel/src/features/screens/product/admin/product_list/pro
 import 'package:flutter_noel/src/features/screens/product/products_list/products_list_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/favorite_user.dart';
 import 'package:flutter_noel/src/features/screens/user/login/login_screen.dart';
+import 'package:flutter_noel/src/features/screens/user/product_user.dart';
 import 'package:flutter_noel/src/features/screens/user/profile/profile_screen.dart';
 import 'package:flutter_noel/src/features/screens/user/user_login_screen.dart';
 
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           children: <Widget> [
             ProductsListScreen(isConnected: true),
-            FavoriteUserScreen(),
+            ProductUserScreen(),
             ProfileScreen(),
           ],
         )

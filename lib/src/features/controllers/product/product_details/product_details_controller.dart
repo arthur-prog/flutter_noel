@@ -43,7 +43,7 @@ class ProductDetailsController extends GetxController {
     print(price);
     print(variantObs);
     var uuid = const Uuid();
-    CartProduct cartProduct = CartProduct(product: product, quantity: 1, id : uuid.v4());
+    CartProduct cartProduct = CartProduct(product: product, quantity: 1, id : uuid.v4(), variant: variantObs);
     await _cartRepository.addProductToCart(cartProduct, product);
   }
 
