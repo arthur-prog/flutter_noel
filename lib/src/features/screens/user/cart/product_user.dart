@@ -16,8 +16,10 @@ class ProductUserScreen extends StatelessWidget {
 
   final _controller = Get.put(ProductUserController());
 
+
   @override
   Widget build(BuildContext context) {
+    List<double> total=[];
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return SafeArea(
       child: Scaffold(
@@ -44,20 +46,16 @@ class ProductUserScreen extends StatelessWidget {
                 stream: _cartRepository.getCartProductsSnapshots(),
                 builder:
                     (BuildContext context, AsyncSnapshot productsSnapshot) {
-                  List<Widget> children = [];
+                      total = _cartRepository.calculTotal(productsSnapshot);
+
+                      List<Widget> children = [];
                   if (productsSnapshot.hasData) {
                     if (productsSnapshot.data!.docs.isEmpty) {
                       return const Text("no product");
                     } else {
-                      double total = 0;
                       productsSnapshot.data!.docs.forEach((doc) {
                         Map<String, dynamic> productJson = doc.data();
                         CartProduct cartProduct = CartProduct.fromMap(productJson);
-                        if(cartProduct.variant == null){
-                          total += cartProduct.product!.price! * cartProduct.quantity;
-                        } else {
-                          total += cartProduct.variant!.price * cartProduct.quantity;
-                        }
                         children.add(
                           ProductLineWidget(
                               cartProduct: cartProduct,
@@ -70,7 +68,9 @@ class ProductUserScreen extends StatelessWidget {
                       children.add(const SizedBox(
                         height: 10,
                       ));
-                      children.add(Text("Total: ${total.toString()}€"));
+                      children.add(Text("Price: ${total[1].toString()}€"));
+                      children.add(Text("Fizz: ${total[2].toString()}€"));
+                      children.add(Text("Total: ${total[0].toString()}€"));
                     }
                   } else {
                     return const CircularProgressIndicator();
@@ -86,9 +86,9 @@ class ProductUserScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {_cartRepository.validateOrder(total[0]);},
                     child: Text(
-                      AppLocalizations.of(context)!.next,
+                      AppLocalizations.of(context)!.pay,
                     )),
               ),
             ],

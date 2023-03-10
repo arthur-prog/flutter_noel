@@ -411,8 +411,8 @@
   "@addedToFavorite": {
       "description": "The added to favorite"
   },
-  "next": "Next",
-  "@next": {
-      "description": "The next"
+  "pay": "Pay",
+  "@pay": {
+      "description": "Payement"
   }
 }
