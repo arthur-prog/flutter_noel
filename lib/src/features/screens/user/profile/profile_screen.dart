@@ -97,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPress: () {},
               ),
               ProfileMenuWidget(
-                title: AppLocalizations.of(context)!.orders,
+                title: AppLocalizations.of(context)!.favorites,
                 icon: Icons.favorite_border,
                 onPress: () {
                   Get.to(() => FavoriteUserScreen());

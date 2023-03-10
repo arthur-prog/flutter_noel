@@ -10,7 +10,7 @@ import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AddProductScreen extends StatelessWidget {
+class AddProductScreen extends StatefulWidget {
   AddProductScreen({
     Key? key,
     this.product,
@@ -19,9 +19,20 @@ class AddProductScreen extends StatelessWidget {
   late Product? product;
 
   @override
+  State<AddProductScreen> createState() => _AddProductScreenState();
+}
+
+class _AddProductScreenState extends State<AddProductScreen> {
+  @override
+  void dispose() {
+    Get.delete<AddProductController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _controller = Get.put(AddProductController());
-    _controller.addValues(product);
+    _controller.addValues(widget.product);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -37,7 +48,7 @@ class AddProductScreen extends StatelessWidget {
                 children: <Widget>[
                   Center(
                     child: Text(
-                      product == null
+                      widget.product == null
                           ? AppLocalizations.of(context)!.addProduct
                           : AppLocalizations.of(context)!.updateProduct,
                       style: Theme.of(context).textTheme.headline1,
@@ -49,8 +60,8 @@ class AddProductScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(15.0),
                             child: Center(
                                 child: Obx(() => _controller.image.value == null
-                                    ? product == null ||
-                                            product!.urlPicture == ""
+                                    ? widget.product == null ||
+                                            widget.product!.urlPicture == ""
                                         ? NoImageWidget(
                                             height: MediaQuery.of(context)
                                                     .size
@@ -63,7 +74,7 @@ class AddProductScreen extends StatelessWidget {
                                           )
                                         : FutureBuilder(
                                             future:
-                                                getImageUrl(product!.urlPicture),
+                                                getImageUrl(widget.product!.urlPicture),
                                             builder: (context, snapshot) {
                                               if (snapshot.hasData) {
                                                 return SizedBox(
@@ -149,7 +160,7 @@ class AddProductScreen extends StatelessWidget {
                         DropdownButtonFormField(
                           validator: (value) =>
                               _controller.validateCategory(value),
-                          value: product == null
+                          value: widget.product == null
                               ? null
                               : _controller.categoryController.text,
                           decoration: InputDecoration(
@@ -190,7 +201,7 @@ class AddProductScreen extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () => product == null
+                            onPressed: () => widget.product == null
                                 ? _controller.addProduct()
                                 : _controller.updateProduct(),
                             child: Text(

@@ -75,9 +75,9 @@ class AddProductController extends GetxController {
           isSizeSelected.value = false;
         }
         if(variantList[0].urlPicture != ""){
-          isSameImageSelected.value = false;
-        } else {
           isSameImageSelected.value = true;
+        } else {
+          isSameImageSelected.value = false;
         }
         variants.value = variantList;
         oldVariants.addAll(variantList);
@@ -126,12 +126,23 @@ class AddProductController extends GetxController {
   }
 
   Future<void> storeVariantImages(String productId) async {
-    for (int i = 0; i < variants.length; i++) {
-      final idProductPictureRef = productPictureRef.child("$productId/${variants[i].id}");
-      try {
-        await idProductPictureRef.putFile(variantImages[i]!);
-      } catch (e) {
-        print("_storeImage error: $e");
+    if(isSameImageSelected.value){
+      for (int i = 0; i < variants.length; i++) {
+        final idProductPictureRef = productPictureRef.child("$productId/${variants[i].id}");
+        try {
+          await idProductPictureRef.putFile(image.value!);
+        } catch (e) {
+          print("_storeImage error: $e");
+        }
+      }
+    } else {
+      for (int i = 0; i < variants.length; i++) {
+        final idProductPictureRef = productPictureRef.child("$productId/${variants[i].id}");
+        try {
+          await idProductPictureRef.putFile(variantImages[variants[i].id]!);
+        } catch (e) {
+          print("_storeImage error: $e");
+        }
       }
     }
   }
@@ -223,6 +234,8 @@ class AddProductController extends GetxController {
       product!.urlPicture = !isVariable.value || (isVariable.value && isSameImageSelected.value) ? "$productPictureFolder/${product!.id}" : "$productPictureFolder/${product!.id}/${variants[0].id}";
       await _productRepository.updateProduct(product!);
       if(isVariable.value){
+        deleteImage(product!.urlPicture);
+        storeProductImage(product!.id);
         if(variants == oldVariants){
           storeVariantImages(product!.id);
         } else {

@@ -1,5 +1,4 @@
 import 'package:flutter_noel/src/features/models/Product.dart';
-import 'package:flutter_noel/src/features/models/User.dart';
 import 'package:flutter_noel/src/features/models/Variant.dart';
 
 class FavoriteProduct {
