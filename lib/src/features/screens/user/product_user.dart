@@ -64,13 +64,6 @@ class ProductUserScreen extends StatelessWidget {
                                 SizedBox(width: 10),
                                 ElevatedButton(
                                   onPressed: () {print(cartProduct.id);
-                                  _controller.removeProductFromCart(cartProduct);
-                                  },
-                                  child: Text('Remove'),
-                                ),
-                                SizedBox(width: 10),
-                                ElevatedButton(
-                                  onPressed: () {print(cartProduct.id);
                                   _controller.incrementQuantity(cartProduct);
                                   },
                                   child: Text('+'),

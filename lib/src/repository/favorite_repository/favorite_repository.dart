@@ -74,7 +74,6 @@ class FavoriteRepository extends GetxController {
    else{
      favoriteProductDoc = favoriteProductsCollection.doc(favoriteProduct.product?.id);
    }
-    print(favoriteProductDoc);
     await favoriteProductDoc.delete();
   }
 

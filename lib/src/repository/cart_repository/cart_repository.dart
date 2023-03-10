@@ -39,7 +39,14 @@ class CartRepository extends GetxController {
     final cartDoc = FirebaseFirestore.instance.doc('cart/${user?.uid}');
     final cartProductsCollection = cartDoc.collection('cartProducts');
 
-    final cartProductsDoc = cartProductsCollection.doc(product.id);
+    final cartProductsDoc;
+
+    if (cartProduct.variant != null){
+      cartProductsDoc = cartProductsCollection.doc(cartProduct.variant?.id);
+    }
+    else{
+      cartProductsDoc = cartProductsCollection.doc(product.id);
+    }
     final cartProductsSnapshot = await cartProductsDoc.get();
 
     if (cartProductsSnapshot.exists) {
@@ -58,7 +65,13 @@ class CartRepository extends GetxController {
     final cartDoc = FirebaseFirestore.instance.doc('cart/${user?.uid}');
     final cartProductsCollection = cartDoc.collection('cartProducts');
 
-    final cartProductsDoc = cartProductsCollection.doc(cartProduct.product?.id);
+    final cartProductsDoc;
+    if(cartProduct.variant != null){
+      cartProductsDoc = cartProductsCollection.doc(cartProduct.variant?.id);
+    }
+    else{
+      cartProductsDoc = cartProductsCollection.doc(cartProduct.product?.id);
+    }
     await cartProductsDoc.delete();
   }
 
@@ -66,8 +79,13 @@ class CartRepository extends GetxController {
     final user = FirebaseAuth.instance.currentUser;
     final cartDoc = FirebaseFirestore.instance.doc('cart/${user?.uid}');
     final cartProductsCollection = cartDoc.collection('cartProducts');
-    final cartProductsDoc = cartProductsCollection.doc(cartProduct.product?.id);
-
+    final cartProductsDoc;
+    if(cartProduct.variant != null){
+      cartProductsDoc = cartProductsCollection.doc(cartProduct.variant?.id);
+    }
+    else{
+      cartProductsDoc = cartProductsCollection.doc(cartProduct.product?.id);
+    }
     int currentQuantity = cartProduct.quantity;
     await cartProductsDoc.update({
       'quantity': currentQuantity + 1,
@@ -79,8 +97,13 @@ class CartRepository extends GetxController {
     final cartDoc = FirebaseFirestore.instance.doc('cart/${user?.uid}');
     final cartProductsCollection = cartDoc.collection('cartProducts');
 
-    final cartProductsDoc = cartProductsCollection.doc(cartProduct.product?.id);
-
+    final cartProductsDoc;
+    if(cartProduct.variant != null){
+      cartProductsDoc = cartProductsCollection.doc(cartProduct.variant?.id);
+    }
+    else{
+      cartProductsDoc = cartProductsCollection.doc(cartProduct.product?.id);
+    }
     int currentQuantity = cartProduct.quantity ?? 0;
 
     if (currentQuantity > 1) {
