@@ -47,7 +47,7 @@ class ProductDetailsController extends GetxController {
     FavoriteProduct favoriteProduct = FavoriteProduct(product: product, id : uuid.v4(), variant: null);
     await _favoriteRepository.addProductToFavorite(favoriteProduct, product);
   }
-}
+
 
   void displayVariant(Variant variant) async{
     image.value = variant.urlPicture!;
