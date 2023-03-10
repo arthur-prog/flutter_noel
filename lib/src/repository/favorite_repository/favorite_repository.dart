@@ -57,9 +57,21 @@ class FavoriteRepository extends GetxController {
     else {
       await cartProductsDoc
           .set(favoriteProduct.toMap())
-          .then((value) => print("Le produit a été ajouté au favoris."))
-          .catchError((error) =>
-          print("Impossible d'ajouter le produit : $error"));
+          .whenComplete(
+            () => SnackBarInformationWidget(
+          text: AppLocalizations.of(Get.context!)!.addedToFavorite,
+          title: AppLocalizations.of(Get.context!)!.success,
+          type: "success",
+        ),
+      )
+          .catchError((error, stackTrace) {
+        SnackBarInformationWidget(
+          text: AppLocalizations.of(Get.context!)!.somethingWentWrong,
+          title: AppLocalizations.of(Get.context!)!.error,
+          type: "error",
+        );
+        print(error.toString());
+      });
     }
   }
 

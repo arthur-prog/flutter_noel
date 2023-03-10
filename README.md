@@ -1,16 +1,40 @@
 # flutter_noel
+Projet réalisé par Arthur Becker, Adrien Destremont, Fritsch Matthieu
 
-A new Flutter project.
+## Lien trello 
+Avec la répartition des tâches et des tâches effectuées
 
-## Getting Started
+https://trello.com/b/nen4AQ0T/projet-flutter
 
-This project is a starting point for a Flutter application.
+## Couples Login/Mot de passe de client :
 
-A few resources to get you started if this is your first Flutter project:
+- login : / mot de passe : 
+- login : / mot de passe :     
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## URL des points d'API
+REPOSITORY DU CODE : https://github.com/mattfritsch/api-points.git
+### get_products_list
+Url : https://flutter-noel-fritsch-becker-destremont.pages.dev/get_products_list.html
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### add_favorite
+Url : https://flutter-noel-fritsch-becker-destremont.pages.dev/add_favorite.html?id_customer=...&id_product=...
+
+ou si vous voulez ajouter un variant :
+
+Url : https://flutter-noel-fritsch-becker-destremont.pages.dev/add_favorite.html?id_customer=...&id_product=...&id_variant=...
+
+### add_to_cart
+
+Url : https://flutter-noel-fritsch-becker-destremont.pages.dev/add_to_cart.html?id_customer=...&id_product=...
+
+ou si vous voulez ajouter un variant :
+
+Url : https://flutter-noel-fritsch-becker-destremont.pages.dev/add_to_cart.html?id_customer=...&id_product=...&id_variant=...
+
+### remove_favorite
+
+Url : https://flutter-noel-fritsch-becker-destremont.pages.dev/remove_favorite.html?id_customer=...&id_product=...
+
+ou si vous voulez supprimer un variant :
+
+Url : https://flutter-noel-fritsch-becker-destremont.pages.dev/remove_favorite.html?id_customer=...&id_product=...&id_variant

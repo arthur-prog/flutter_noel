@@ -4,8 +4,6 @@ import 'package:flutter_noel/src/common_widgets/form/form_header_widget.dart';
 import 'package:flutter_noel/src/features/controllers/user/registration_user/registration_user_controller.dart';
 import 'package:flutter_noel/src/features/screens/user/login/widgets/login_form_widget.dart';
 import 'package:flutter_noel/src/features/screens/user/signup/signup_screen.dart';
-import 'package:flutter_noel/src/features/screens/user/user_login_screen.dart';
-import 'package:flutter_noel/src/features/screens/user/user_registration_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

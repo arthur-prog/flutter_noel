@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
 import 'package:flutter_noel/src/constants/colors.dart';
 import 'package:flutter_noel/src/features/models/Product.dart';
+import 'package:flutter_noel/src/features/models/Variant.dart';
 import 'package:flutter_noel/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter_noel/src/repository/product_repository/product_repository.dart';
 import 'package:flutter_noel/src/utils/utils.dart';
@@ -25,26 +26,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   final _productRepository = Get.put(ProductRepository());
 
-  final _authRepo = Get.put(AuthenticationRepository());
-
-
   @override
-  void initState(){
-    _controller.price.value = widget.product.price.toString();
+  void initState() {
+    if (widget.product.price != null) {
+      _controller.price.value = widget.product.price.toString();
+    }
     _controller.image.value = widget.product.urlPicture;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = _authRepo.firebaseUser.value;
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).cardColor,
         elevation: 0,
         leading: IconButton(
-          onPressed: () {_controller.back();},
+          onPressed: () {
+            _controller.back();
+          },
           icon: Icon(
             Icons.arrow_back_ios,
             color: isDark ? lightColor : darkColor,
@@ -69,10 +70,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             child: Obx(
               () => FutureBuilder(
                 future: getImageUrl(_controller.image.value),
-                builder: (BuildContext context,
-                    AsyncSnapshot imageSnapshot) {
-                  if (imageSnapshot.connectionState ==
-                      ConnectionState.done){
+                builder: (BuildContext context, AsyncSnapshot imageSnapshot) {
+                  if (imageSnapshot.connectionState == ConnectionState.done) {
                     if (imageSnapshot.hasData) {
                       return Image.network(
                         imageSnapshot.data,
@@ -122,15 +121,36 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            Obx(
-                              () => Text(
-                                '${_controller.price.value}€',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
+                            widget.product.price == null
+                                    ? FutureBuilder(
+                                  future: _productRepository
+                                      .getVariants(widget.product),
+                                  builder: (context, AsyncSnapshot snapshotVariants) {
+                                    if (snapshotVariants.connectionState ==  ConnectionState.done) {
+                                      if (snapshotVariants.hasData) {
+                                        Variant variant = snapshotVariants.data![0];
+                                        _controller.price.value = variant.price.toString();
+                                        return Obx(
+                                          () => Text(
+                                            '${_controller.price.value}€',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                    return const CircularProgressIndicator();
+                                  },
+                                )
+                                    : Text(
+                                  '${_controller.price.value}€',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                            ),
                           ],
                         ),
                         const SizedBox(height: 15),
@@ -143,22 +163,25 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                         const SizedBox(height: 15),
                         SizedBox(
-                          height: 110,
-                          child: FutureBuilder(
-                            future: _productRepository.getVariants(widget.product),
-                            builder: (BuildContext context, AsyncSnapshot snapshotVariants) {
-                                if (snapshotVariants.connectionState == ConnectionState.done){
-                                if (snapshotVariants.hasData) {
-                                      return _controller.buildVariants(snapshotVariants.data!);
+                            height: 110,
+                            child: FutureBuilder(
+                              future: _productRepository
+                                  .getVariants(widget.product),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshotVariants) {
+                                if (snapshotVariants.connectionState ==
+                                    ConnectionState.done) {
+                                  if (snapshotVariants.hasData) {
+                                    return _controller
+                                        .buildVariants(snapshotVariants.data!);
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
                                 } else {
-                                      return const CircularProgressIndicator();
+                                  return const CircularProgressIndicator();
                                 }
-                                } else {
-                                      return const CircularProgressIndicator();
-                                }
-                            },
-                          )
-                        ),
+                              },
+                            )),
                         const SizedBox(height: 20),
                       ],
                     ),
@@ -180,8 +203,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               height: 50,
               alignment: Alignment.center,
               child: IconButton(
-                onPressed:() => _controller.addProductToFavorite(widget.product),
-                icon : const Icon(
+                onPressed: () =>
+                    _controller.addProductToFavorite(widget.product),
+                icon: const Icon(
                   Icons.favorite_border,
                   size: 30,
                   color: Colors.grey,
@@ -190,17 +214,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
             const SizedBox(width: 20),
             Expanded(
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () => _controller.addProductToCart(widget.product),
-                    child: Text(
-                        AppLocalizations.of(context)!.addToCart,
-                        style: Theme.of(context).textTheme.headlineSmall?.apply(color: isDark ? darkColor : lightColor),
-                    )
-                ),
-              )
-              ),
+                child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () => _controller.addProductToCart(widget.product),
+                  child: Text(
+                    AppLocalizations.of(context)!.addToCart,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.apply(color: isDark ? darkColor : lightColor),
+                  )),
+            )),
             //),
           ],
         ),

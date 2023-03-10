@@ -402,5 +402,17 @@
   "admin": "Admin",
   "@admin": {
       "description": "The admin"
+  },
+  "addedToCart": "Product added to cart",
+  "@addedToCart": {
+      "description": "The added to cart"
+  },
+  "addedToFavorite": "Product added to favorite",
+  "@addedToFavorite": {
+      "description": "The added to favorite"
+  },
+  "next": "Next",
+  "@next": {
+      "description": "The next"
   }
 }

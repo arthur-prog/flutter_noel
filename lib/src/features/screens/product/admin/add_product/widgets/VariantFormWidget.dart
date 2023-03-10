@@ -3,7 +3,6 @@ import 'package:flutter_noel/src/common_widgets/no_image/NoImageWidget.dart';
 import 'package:flutter_noel/src/constants/colors.dart';
 import 'package:flutter_noel/src/features/controllers/product/add_product/add_product_controller.dart';
 import 'package:flutter_noel/src/features/models/Variant.dart';
-import 'package:flutter_noel/src/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
